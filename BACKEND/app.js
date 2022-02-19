@@ -7,7 +7,7 @@ const cookieSession = require("cookie-session");
 const nocache = require("nocache")
 
 
-// const userRoutes = require("./routes/user.routes")
+const userRoutes = require("./routes/user.routes")
 // const commentRoutes = require("./routes/comment.routes")
 // const postRoutes = require("./routes/post.routes")
 
@@ -38,7 +38,7 @@ db.sequelize.sync()
 
 
 // app.use("/images", express.static(path.join(__dirname, "images")))
-// app.use('/api/auth', userRoutes);
+app.use('/api/auth', userRoutes);
 // app.use('/api/post', postRoutes);
 // app.use('/api/comments', commentRoutes);
 

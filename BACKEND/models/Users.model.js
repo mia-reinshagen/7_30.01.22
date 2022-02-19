@@ -35,21 +35,21 @@ module.exports = (sequelize, DataTypes) => {
         type: {
             type: DataTypes.STRING,
             allowNull: true,
-          },
-          name: {
+        },
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "avatar.png"
-          },
-          data: {
+        },
+        data: {
             type: DataTypes.BLOB("long"),
-          },
+        },
     });
 
 
     Users.associate = (models) => {
         Users.hasMany(models.Posts, {
-          onDelete: "cascade",
+            onDelete: "cascade",
         });
 
         Users.hasMany(models.Likes, {
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
         Users.hasMany(models.Comments, {
             onDelete: "cascade",
         });
-      };
-  
+    };
+
     return Users;
-  };
+};
