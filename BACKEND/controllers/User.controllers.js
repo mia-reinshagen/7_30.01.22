@@ -90,3 +90,21 @@ exports.editPassword = async (req, res, next) => {
       });
     });
   };
+
+  // Modifier la Photo d'un utilisateur
+exports.editPicture = async (req, res, next) => {
+    console.log(req)
+    const id = req.params.id;
+    const user = await Users.findOne({ where: { id: id } });
+    user.update({
+      type: req.file.mimetype,
+      name: req.file.originalname,
+      data: fs.readFileSync( "../Backend/images/uploads/" + req.file.filename)
+    })
+    .then((image) => {
+      fs.writeFileSync( "../Backend/images/tmp/" + image.name, image.data);
+      
+  
+    return res.send(`La photo a été télechargé`);
+  });
+  };
