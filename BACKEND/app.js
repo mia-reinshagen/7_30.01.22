@@ -37,7 +37,7 @@ const db = require("./models")
 db.sequelize.sync()
 
 
-// app.use("/images", express.static(path.join(__dirname, "images")))
+app.use("/images", express.static(path.join(__dirname, "images")))
 app.use('/api/auth', userRoutes); //pour tout les routes utilisateur mettre api/auth
 // app.use('/api/post', postRoutes);
 // app.use('/api/comments', commentRoutes);

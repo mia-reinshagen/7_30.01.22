@@ -125,10 +125,10 @@ exports.editPicture = async (req, res, next) => {
     user.update({
         type: req.file.mimetype,
         name: req.file.originalname,
-        data: fs.readFileSync("../Backend/images/uploads/" + req.file.filename)
+        data: fs.readFileSync("../backend/images/uploads/" + req.file.filename)
     })
         .then((image) => {
-            fs.writeFileSync("../Backend/images/tmp/" + image.name, image.data);
+            fs.writeFileSync("../backend/images/tmp/" + image.name, image.data);
 
 
             return res.send(`La photo a été télechargé`);
