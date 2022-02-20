@@ -71,4 +71,22 @@ exports.deleteUser = (req, res, next) => {
     Users.destroy({ where: { id: id } });
     res.json("Compte supprimé");
   };
+
+  // Modifier le Mot de passe 
+exports.editPassword = async (req, res, next) => {
+    const id = req.params.id;
+    const { oldPassword, newPassword } = req.body;
+    const user = await Users.findOne({ where: { id: id } });
   
+    bcrypt.compare(oldPassword, user.password).then(async (match) => {
+      if (!match) res.json({ error: "Mauvais mot de passe" });
+  
+      bcrypt.hash(newPassword, 10).then((hash) => {
+        Users.update(
+          { password: hash },
+          { where: { id: id } }
+        );
+        res.json("Mot de passe modifié");
+      });
+    });
+  };
