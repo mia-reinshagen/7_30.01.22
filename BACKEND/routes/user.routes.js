@@ -13,7 +13,7 @@ const userCtrl = require('../controllers/User.controllers');
 router.post('/signup', passwordValidator, userCtrl.signup);
 router.post('/login', bouncer.block, userCtrl.login);
 router.get("/userInfo/:id", auth, userCtrl.userInfo);
-router.put("/editPassword/:id", userCtrl.editPassword);
+router.put("/editPassword/:id", auth, userCtrl.editPassword);
 router.put("/editPicture/:id", userCtrl.editPicture);
 router.delete("/userInfo/:id", userCtrl.deleteUser);
 
