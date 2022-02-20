@@ -15,6 +15,6 @@ router.post('/login', bouncer.block, userCtrl.login);
 router.get("/userInfo/:id", auth, userCtrl.userInfo);
 router.put("/editPassword/:id", auth, userCtrl.editPassword);
 router.put("/editPicture/:id", userCtrl.editPicture);
-router.delete("/userInfo/:id", userCtrl.deleteUser);
+router.delete("/userInfo/:id", auth, userCtrl.deleteUser);
 
 module.exports = router;
