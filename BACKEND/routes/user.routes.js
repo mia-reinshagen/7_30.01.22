@@ -9,5 +9,7 @@ const userCtrl = require('../controllers/User.controllers');
 // Route pour crée un compte, et route de connexion
 router.post('/signup',userCtrl.signup);
 router.post('/login',userCtrl.login);
+router.get("/userInfo/:id",userCtrl.userInfo);
+router.delete("/userInfo/:id", userCtrl.deleteUser);
 
 module.exports = router;
