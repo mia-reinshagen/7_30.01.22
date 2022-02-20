@@ -5,7 +5,30 @@ const jwt = require('jsonwebtoken');
 const { Users } = require("../models");
 
 // Permet de crée un utilisateur
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
+    const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    try {
+		if (!req.body.lastname || !req.body.firstname || !req.body.username || !req.body.email || !req.body.password ) {
+			return res.status(201).json({ message: 'Il faut remplir tous les champs!' })
+		}
+        if (!email_regex.test(req.body.email)){
+            return res.status(201).json({ message: "Le format d'email n'est pas correct" })
+        }
+        const isEmailExist = await Users.findOne({
+			attributes: ["email"],
+			where: { email: req.body.email }
+		});
+		if (isEmailExist) {
+		  return 	res.status(400).json( {message: 'Cet email existe déjà !'});
+		}
+        const isUsernameExist = await Users.findOne({
+			attributes: ["username"],
+			where: { username: req.body.username }
+		});
+		if (isUsernameExist) {
+		  return 	res.status(400).json( {message: 'Ce pseudo existe déjà !'});
+		}
+    
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new Users({
@@ -20,6 +43,9 @@ exports.signup = (req, res, next) => {
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
+    }catch (error) {
+		res.status(400).json({ error: error.message });
+	}
 };
 
 // Permet de ce connecter a un compte existant
