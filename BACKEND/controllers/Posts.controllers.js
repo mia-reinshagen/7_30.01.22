@@ -11,6 +11,21 @@ exports.allPosts = async (req, res, next) => {
     res.status(200).json({ listOfPosts: listOfPosts})
   };
 
+  // Récupère un post par son Id
+exports.onePost = async (req, res, next) => {
+    const id = req.params.id;
+    Posts.findByPk(id)
+        .then(posts => res.status(200).json(posts))
+        .catch(error => res.status(400).json({error}))
+};
+
+// Récupère tout les posts d'un utilisateur
+exports.userPost = async (req, res, next) => {
+    const id = req.params.id;
+    const listOfPosts = await Posts.findAll({ order: [["createdAt", "DESC"]], where : {UserId: id}});
+    res.status(200).json({ listOfPosts: listOfPosts})
+};
+
 // Créer un post 
 exports.createPost = async (req, res, next) => {
     console.log(req)
