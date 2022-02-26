@@ -64,3 +64,10 @@ exports.createPost = async (req, res, next) => {
         }
   };
   
+  // Supprimer un post 
+exports.deletePost = (req, res, next) => {
+    const postId = req.params.postId;
+    console.log(req.userId);
+    Posts.destroy({ where: { id: postId } });
+    res.json("Post supprimé");
+  }
