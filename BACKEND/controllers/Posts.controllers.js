@@ -1,4 +1,4 @@
-/* const fs = require("fs");
+const fs = require("fs");
 
 const db = require("../models");
 const Posts = db.Posts;
@@ -26,11 +26,11 @@ exports.createPost = async (req, res, next) => {
               username: req.body.username,
               postText: req.body.postText,
               data: fs.readFileSync(
-                  "../Backend/images/uploads/" + req.file.filename
+                  "../backend/images/uploads/" + req.file.filename
               ),
               }).then((image) => {
               fs.writeFileSync(
-                  "../Backend/images/tmp/" + image.name,
+                  "../backend/images/tmp/" + image.name,
                   image.data
               );
       
@@ -41,4 +41,4 @@ exports.createPost = async (req, res, next) => {
           return res.send(`Echec du telechargement du post: ${error}`);
         }
   };
-  */
+  
