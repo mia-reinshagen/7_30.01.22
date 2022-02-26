@@ -3,6 +3,13 @@ const fs = require("fs");
 const db = require("../models");
 const Posts = db.Posts;
 
+// Récupère tout les post
+exports.allPosts = async (req, res, next) => {
+    const listOfPosts = await Posts.findAll({ 
+      order: [["createdAt", "DESC"]]
+    });
+    res.status(200).json({ listOfPosts: listOfPosts})
+  };
 
 // Créer un post 
 exports.createPost = async (req, res, next) => {
