@@ -1,16 +1,17 @@
 const fs = require("fs");
-const { response } = require("../app");
 
 const db = require("../models");
 const { post } = require("../routes/posts.routes");
 const Posts = db.Posts;
+const Likes = db.Likes;
 
 // Récupère tout les post
 exports.allPosts = async (req, res, next) => {
     const listOfPosts = await Posts.findAll({ 
-      order: [["createdAt", "DESC"]]
-    });
-    res.status(200).json({ listOfPosts: listOfPosts})
+      order: [["createdAt", "DESC"]],
+      include: [Likes]});
+    const likedPosts = await Likes.findAll({ where: { UserId: req.headers.userid}})
+      res.status(200).json({ listOfPosts: listOfPosts, likedPosts: likedPosts})
   };
 
   // Récupère un post par son Id
@@ -25,7 +26,8 @@ exports.onePost = async (req, res, next) => {
 exports.userPost = async (req, res, next) => {
     const id = req.params.id;
     const listOfPosts = await Posts.findAll({ order: [["createdAt", "DESC"]], where : {UserId: id}});
-    res.status(200).json({ listOfPosts: listOfPosts})
+    const likedPosts = await Likes.findAll({ where: { UserId: req.headers.userid}})
+    res.status(200).json({ listOfPosts: listOfPosts, likedPosts: likedPosts})
 };
 
 // Créer un post 
@@ -71,14 +73,28 @@ exports.deletePost = async (req, res, next) => {
     const postId = req.params.postId;
     const userPost = await Posts.findOne ({
         where : {id : postId}
-
     })
-
     if (userPost.UserId == req.userId){
         Posts.destroy({ where: { id: postId } });
         return res.json ({message :"Post supprimé avec succès"});
     } else {
         return res.json ({message :"Vous ne pouvez pas supprimé ce post"});
     }
-    
   }
+
+  // Créer, supprimer un like
+  exports.createLike = async (req, res, next) => {
+    const { PostId, UserId } = req.body;
+    const found = await Likes.findOne({
+      where: { PostId: PostId, UserId: UserId },
+    });
+    if (!found) {
+      await Likes.create({ PostId: PostId, UserId: UserId });
+      res.json({ liked: true });
+    } else {
+      await Likes.destroy({
+        where: { PostId: PostId, UserId: UserId },
+      });
+      res.json({ liked: false });
+    }
+}
