@@ -18,3 +18,16 @@ exports.allComments = (req, res, next) => {
         .catch(error => res.status(400).json({error}))
 };
 
+
+  exports.deleteComment = async (req, res, next) => {
+    const commentId = req.params.id;
+    const userComment = await Comments.findOne ({
+        where : {id : commentId}
+    })
+    if (userComment.UserId == req.userId){
+        Comments.destroy({ where: { id: commentId } });
+        return res.json ({message :"Commentaire supprimé avec succès"});
+    } else {
+        return res.json ({message :"Vous ne pouvez pas supprimé ce commentaire"});
+    }
+  }
