@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
         }
         const decodedToken = jwt.verify(token, process.env.TOKEN);
         const userId = decodedToken.id;
+        req.userId = userId;
         console.log(userId);
         if (req.body.userId && req.body.userId != userId) {
             return res.status(401).json({ message: "cet utilisateur n'est pas connecté" })

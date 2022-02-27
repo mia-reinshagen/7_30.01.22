@@ -1,6 +1,8 @@
 const fs = require("fs");
+const { response } = require("../app");
 
 const db = require("../models");
+const { post } = require("../routes/posts.routes");
 const Posts = db.Posts;
 
 // Récupère tout les post
@@ -65,9 +67,18 @@ exports.createPost = async (req, res, next) => {
   };
   
   // Supprimer un post 
-exports.deletePost = (req, res, next) => {
+exports.deletePost = async (req, res, next) => {
     const postId = req.params.postId;
-    console.log(req.userId);
-    Posts.destroy({ where: { id: postId } });
-    res.json("Post supprimé");
+    const userPost = await Posts.findOne ({
+        where : {id : postId}
+
+    })
+
+    if (userPost.UserId == req.userId){
+        Posts.destroy({ where: { id: postId } });
+        return res.json ({message :"Post supprimé avec succès"});
+    } else {
+        return res.json ({message :"Vous ne pouvez pas supprimé ce post"});
+    }
+    
   }
