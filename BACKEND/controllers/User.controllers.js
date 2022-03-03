@@ -36,7 +36,7 @@ exports.signup = async (req, res, next) => {
                     firstname: req.body.firstname,
                     username: req.body.username,
                     email: req.body.email,
-                    isAdminAccount: req.body.isAdminAccount,
+                    isAdminAccount : req.body.isAdminAccount,
                     password: hash
                 });
                 user.save()
