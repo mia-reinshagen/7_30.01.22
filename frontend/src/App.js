@@ -9,6 +9,7 @@ import SignUp from './pages/Signup.pages';
 import SignIn from './pages/Signin.pages';
 import Profil from './pages/Profil.pages';
 import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 				<Route path="/signin" exact component={SignIn} />
         <Route path="/profil" exact component={Profil} />
 			</Switch>
+      <Footer />
 			
 		</Router>
 	);
