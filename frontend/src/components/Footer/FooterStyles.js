@@ -2,15 +2,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Column, Row } from '../../globalStyles';
 
-export const FooterContainer = styled.div`
-	background-color: #101522;
+export const FooterContainer = styled.section`
+	background-color: #ccc;
 	padding: 4rem 0 2rem 0;
+	background-color: pink;
+
 `;
+
 
 export const FooterWrapper = styled.div`
 	max-width: 1280px;
 	margin-left: auto;
 	margin-right: auto;
+	background-color: pink;
+
 `;
 
 export const FooterSubscription = styled.section`
@@ -125,7 +130,7 @@ export const FooterLogo = styled(Link)`
 
 export const SocialIcon = styled.img`
 	margin-right: 10px;
-	width: 40px;
+	width: 200px;
 `;
 
 export const FooterRights = styled.div`

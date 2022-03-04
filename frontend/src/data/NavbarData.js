@@ -6,11 +6,11 @@ export const data = [
 	},
 	{
 		to: '/signin',
-		text: 'Singin',
+		text: 'Sign in',
 	},
 	{
 		to: '/signup',
-		text: 'Signup',
+		text: 'Sign up',
 	},
 	{
 		to: '/profil',

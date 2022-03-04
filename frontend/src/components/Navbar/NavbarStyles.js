@@ -39,7 +39,7 @@ export const NavLogo = styled(Link)`
 
 export const NavIcon = styled.img`
 	margin-right: 1rem;
-	width: 3rem;
+	width: 12rem;
 `;
 
 export const MobileIcon = styled.div`
@@ -104,6 +104,7 @@ export const NavLinks = styled.span`
 	text-decoration: none;
 	padding: 0.5rem 1rem;
 	height: 100%;
+	color: black;
 
 	&:hover {
 		color: #c8c9d8;

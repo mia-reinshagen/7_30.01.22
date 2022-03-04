@@ -11,22 +11,22 @@ import {
 	FooterAddress,
 	FooterColumn,
 	FooterGrid,
+	FooterContainer,
 } from './FooterStyles';
 import { footerData, footerSocialData } from '../../data/FooterData';
 import { Row, Section } from '../../globalStyles';
 
 function Footer() {
 	return (
-		<Section padding="4rem 0 2rem 0">
+	
+		<FooterContainer>
 			<FooterWrapper>
 				<FooterGrid justify="space-between">
 					<FooterColumn id="footerLogo">
 						<FooterLogo to="/">
-							<SocialIcon src="./assets/logo.png" />
-							Delta
+							<SocialIcon src="icon-left-font-monochrome-black.png" />
 						</FooterLogo>
 						<FooterAddress>
-							69 Street, Delta Building, US Road, Los Angeles 123
 						</FooterAddress>
 
 						<Row align="center" margin="auto  0 0 0" gap="1rem">
@@ -53,9 +53,10 @@ function Footer() {
 						</FooterLinkItems>
 					))}
 				</FooterGrid>
-				<FooterRights>Delta © 2021</FooterRights>
+				<FooterRights>Groupomania © 2022</FooterRights>
 			</FooterWrapper>
-		</Section>
+		</FooterContainer>
+	
 	);
 }
 

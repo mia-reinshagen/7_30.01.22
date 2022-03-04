@@ -1,7 +1,8 @@
 import React from 'react';
+import Form from '../components/Form/Form';
 
 function SignUp() {
-	return <div>Signup</div>
+	return <> <Form /></>
 }
 
 export default SignUp;
