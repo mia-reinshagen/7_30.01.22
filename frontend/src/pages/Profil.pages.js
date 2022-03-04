@@ -1,10 +1,7 @@
 import React from 'react';
 
 function Profil() {
-	return (
-		<>
-		</>
-	);
+	return <div>Profil</div>
 }
 
 export default Profil;
