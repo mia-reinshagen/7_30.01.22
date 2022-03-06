@@ -77,6 +77,7 @@ export const Content = ({
 								primary={primary}
 							>
 								{buttonLabel}
+
 							</ContentButton>
 						</TextWrapper>
 					</ContentColumn>

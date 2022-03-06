@@ -5,7 +5,7 @@ export const FormSection = styled.div`
 	/* color: #fff; */
 	padding: 160px 0;
 	/* background: ${({ inverse }) => (inverse ? '#101522' : '#fff')}; */
-	background: #101522;
+	background: orange;
 `;
 
 export const FormTitle = styled.h1`

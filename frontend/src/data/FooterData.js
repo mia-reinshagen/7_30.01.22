@@ -28,16 +28,16 @@ export const footerSocialData = [
 
 export const footerData = [
 	{
-		title: 'Main',
-		links: ['Blog', 'FAQs', 'Support', 'About us'],
+		title: 'General',
+		links: ['Blog', 'FAQs', 'Support', 'Sur nous'],
 	},
 	{
-		title: 'Product',
-		links: ['Login', 'Personal', 'Business', 'Team'],
+		title: 'Produit',
+		links: ['Login', 'Personel', 'Travail', 'Team'],
 	},
 	{
-		title: 'Press',
-		links: ['Logos', 'Events', 'Stories', 'Office'],
+		title: 'La Press',
+		links: ['Logos', 'Evenements', 'Stories', 'Buro'],
 	},
 	{
 		title: 'Legal',

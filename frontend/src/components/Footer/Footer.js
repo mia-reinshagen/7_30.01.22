@@ -3,8 +3,6 @@ import {
 	FooterLinkItems,
 	FooterLinkTitle,
 	FooterLink,
-	FooterLogo,
-	SocialIcon,
 	FooterRights,
 	FooterSocialIcon,
 	FooterWrapper,
@@ -14,7 +12,7 @@ import {
 	FooterContainer,
 } from './FooterStyles';
 import { footerData, footerSocialData } from '../../data/FooterData';
-import { Row, Section } from '../../globalStyles';
+import { Row } from '../../globalStyles';
 
 function Footer() {
 	return (
@@ -23,9 +21,6 @@ function Footer() {
 			<FooterWrapper>
 				<FooterGrid justify="space-between">
 					<FooterColumn id="footerLogo">
-						<FooterLogo to="/">
-							<SocialIcon src="icon-left-font-monochrome-black.png" />
-						</FooterLogo>
 						<FooterAddress>
 						</FooterAddress>
 

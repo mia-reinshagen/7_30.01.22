@@ -12,30 +12,56 @@ import {
 	FormTitle,
 } from './FormStyles';
 import { Container } from '../../globalStyles';
-import validateForm from './validateForm';
+import validateForm, { isEmail } from './validateForm';
+import { register } from '../../apiCall';
 
-const Form = () => {
+const SignupForm = () => {
+	const [firstname, setFirstName] = useState('');
 	const [name, setName] = useState('');
+	const [username, setUserName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
-	const [error, setError] = useState(null);
-	const [success, setSuccess] = useState(null);
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const resultError = validateForm({ name, email, password, confirmPass });
-
-		if (resultError !== null) {
+		let resultError = validateForm({ firstname, name, username, email, password, confirmPass });
+		if (resultError !== '') {
 			setError(resultError);
 			return;
 		}
+		if (!isEmail(email)) {
+			resultError = "Le format d'email n'est pas valide"
+			setError(resultError);
+			return
+		}
+		const newUser = {
+
+			firstname: firstname,
+			lastname: name,
+			username: username,
+			email: email,
+			password: password,
+			isAdminAccount: 0
+
+		}
+		register(newUser)
+			.then(response => {
+				console.log(response.data)
+			}).catch(error => {
+				console.log("danger", error.response.data.error);
+			});
+		setFirstName('');
 		setName('');
+		setUserName('');
 		setEmail('');
 		setPassword('');
 		setConfirmPass('');
 		setError(null);
-		setSuccess('Application was submitted!');
+		setSuccess('Vous êtes bien inscrit!');
+
 	};
 
 	const messageVariants = {
@@ -44,19 +70,21 @@ const Form = () => {
 	};
 
 	const formData = [
-		{ label: 'Name', value: name, onChange: (e) => setName(e.target.value), type: 'text' },
+		{ label: 'Prénom', value: firstname, onChange: (e) => setFirstName(e.target.value), type: 'text' },
+		{ label: 'Nom', value: name, onChange: (e) => setName(e.target.value), type: 'text' },
+		{ label: 'Pseudo', value: username, onChange: (e) => setUserName(e.target.value), type: 'text' },
 		{ label: 'Email', value: email, onChange: (e) => setEmail(e.target.value), type: 'email' },
 		{
-			label: 'Password',
+			label: 'Mot de passe',
 			value: password,
 			onChange: (e) => setPassword(e.target.value),
-			type: 'password',
+			type: 'mot de passe',
 		},
 		{
-			label: 'Confirm Password',
+			label: 'Verifier Mot de passe',
 			value: confirmPass,
 			onChange: (e) => setConfirmPass(e.target.value),
-			type: 'password',
+			type: 'mot de passe',
 		},
 	];
 	return (
@@ -65,13 +93,13 @@ const Form = () => {
 				<FormRow>
 					<FormColumn small>
 						<FormTitle>Sign up</FormTitle>
-						<FormWrapper onSubmit={handleSubmit}>
+						<FormWrapper onSubmit={handleSubmit} noValidate>
 							{formData.map((el, index) => (
 								<FormInputRow key={index}>
 									<FormLabel>{el.label}</FormLabel>
 									<FormInput
 										type={el.type}
-										placeholder={`Enter your ${el.label.toLocaleLowerCase()}`}
+										placeholder={`Veuillez entrer votre ${el.label.toLocaleLowerCase()}`}
 										value={el.value}
 										onChange={el.onChange}
 									/>
@@ -106,4 +134,4 @@ const Form = () => {
 	);
 };
 
-export default Form;
+export default SignupForm;

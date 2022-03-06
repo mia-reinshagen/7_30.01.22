@@ -117,16 +117,6 @@ export const FooterLink = styled(Link)`
 	}
 `;
 
-export const FooterLogo = styled(Link)`
-	color: #fff;
-	justify-self: start;
-	cursor: pointer;
-	text-decoration: none;
-	font-size: 2rem;
-	display: flex;
-	align-items: center;
-	margin-bottom: 16px;
-`;
 
 export const SocialIcon = styled.img`
 	margin-right: 10px;

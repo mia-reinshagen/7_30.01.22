@@ -1,28 +1,23 @@
-export default function validateForm({ name, email, password, confirmPass }) {
-	if (!name.trim()) {
-		return 'Username required';
+export default function validateForm({ firstname, name, username, email, password, confirmPass }) {
+	if (!firstname.trim() || !name.trim() || !username.trim() || !email.trim()) {
+		return 'Vous devez remplir tout les champs';
 	}
-	// else if (!/^[A-Za-z]+/.test(name.trim())) {
-	//   errors.name = 'Enter a valid name';
-	// }
 
-	const regex =
-		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	if (!email) {
-		return 'Email required';
-	} else if (regex.test(email.toLocalLowerCase)) {
-		return 'Email address is invalid';
-	}
 	if (!password) {
-		return 'Password is required';
+		return 'Mot de Passe obligatoire';
 	} else if (password.length < 6) {
-		return 'Password needs to be 6 characters or more';
+		return 'Mot de Passe doit faire au moins 6 caractères';
 	}
 
 	if (!confirmPass) {
-		return 'Enter Confirm password is required';
+		return 'Besoin de confirmation du mot de passe';
 	} else if (confirmPass !== password) {
-		return 'Passwords do not match';
+		return 'Le mot de passe ne correspond pas';
 	}
-	return null;
+	return '';
+}
+
+export const isEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }
