@@ -6,13 +6,18 @@ const { Users } = require("../models");
 
 // Permet de crée un utilisateur
 exports.signup = async (req, res, next) => {
+    console.log(req.body);
     const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const password_regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
     try {
         if (!req.body.lastname || !req.body.firstname || !req.body.username || !req.body.email || !req.body.password) {
             return res.status(201).json({ message: 'Il faut remplir tous les champs!' })
         }
         if (!email_regex.test(req.body.email)) {
             return res.status(201).json({ message: "Le format d'email n'est pas correct" })
+        }
+        if (!password_regex.test(req.body.password)) {
+            return res.status(201).json({ message: "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial" })
         }
         const isEmailExist = await Users.findOne({
             attributes: ["email"],

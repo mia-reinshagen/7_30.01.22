@@ -10,7 +10,7 @@ const multer = require('../middleware/multer-config');
 const userCtrl = require('../controllers/User.controllers');
 
 // Route pour crée un compte, et route de connexion
-router.post('/signup', passwordValidator, userCtrl.signup);
+router.post('/signup', userCtrl.signup);
 router.post('/login', bouncer.block, userCtrl.login);
 router.get("/userInfo/:id", auth, userCtrl.userInfo);
 router.put("/editPassword/:id", auth, userCtrl.editPassword);

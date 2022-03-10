@@ -12,8 +12,9 @@ import {
 	FormTitle,
 } from './FormStyles';
 import { Container } from '../../globalStyles';
-import validateForm, { isEmail } from './validateForm';
+import validateForm, { isEmail, isPassword } from './validateForm';
 import { register } from '../../apiCall';
+import axios from "axios";
 
 const SignupForm = () => {
 	const [firstname, setFirstName] = useState('');
@@ -37,6 +38,11 @@ const SignupForm = () => {
 			setError(resultError);
 			return
 		}
+		if (!isPassword(password)) {
+			resultError = "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial"
+			setError(resultError);
+			return
+		}
 		const newUser = {
 
 			firstname: firstname,
@@ -47,12 +53,26 @@ const SignupForm = () => {
 			isAdminAccount: 0
 
 		}
-		register(newUser)
+		/*register(newUser)
 			.then(response => {
 				console.log(response.data)
 			}).catch(error => {
-				console.log("danger", error.response.data.error);
-			});
+				console.log("danger",error.data);
+			});*/
+
+			
+				axios.post("http://localhost:3500/api/auth/signup", newUser)
+				.then((response) => {
+				  console.log(response.error);
+				  if(response.data.error){
+					alert(response);
+				} else {
+					alert('Utilisateur Crée, merci de vous connecter');
+					/* history.push("/connexion");*/
+				}
+				});
+			
+
 		setFirstName('');
 		setName('');
 		setUserName('');
