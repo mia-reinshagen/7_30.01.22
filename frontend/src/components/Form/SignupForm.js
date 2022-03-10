@@ -12,8 +12,6 @@ import {
 	FormTitle,
 } from './FormStyles';
 import { Container } from '../../globalStyles';
-import validateForm, { isEmail, isPassword } from './validateForm';
-import { register } from '../../apiCall';
 import axios from "axios";
 
 const SignupForm = () => {
@@ -28,21 +26,12 @@ const SignupForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let resultError = validateForm({ firstname, name, username, email, password, confirmPass });
-		if (resultError !== '') {
-			setError(resultError);
+
+
+		if (confirmPass !== password) {
+			setError('Le mot de passe ne correspond pas');
 			return;
-		}
-		if (!isEmail(email)) {
-			resultError = "Le format d'email n'est pas valide"
-			setError(resultError);
-			return
-		}
-		if (!isPassword(password)) {
-			resultError = "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial"
-			setError(resultError);
-			return
-		}
+		};
 		const newUser = {
 
 			firstname: firstname,
@@ -53,34 +42,22 @@ const SignupForm = () => {
 			isAdminAccount: 0
 
 		}
-		/*register(newUser)
-			.then(response => {
-				console.log(response.data)
+
+
+		axios.post("http://localhost:3500/api/auth/signup", newUser)
+			.then((response) => {
+				setFirstName('');
+				setName('');
+				setUserName('');
+				setEmail('');
+				setPassword('');
+				setConfirmPass('');
+				setSuccess(response.data.message);
+				setError('');
+
 			}).catch(error => {
-				console.log("danger",error.data);
-			});*/
-
-			
-				axios.post("http://localhost:3500/api/auth/signup", newUser)
-				.then((response) => {
-				  console.log(response.error);
-				  if(response.data.error){
-					alert(response);
-				} else {
-					alert('Utilisateur Crée, merci de vous connecter');
-					/* history.push("/connexion");*/
-				}
-				});
-			
-
-		setFirstName('');
-		setName('');
-		setUserName('');
-		setEmail('');
-		setPassword('');
-		setConfirmPass('');
-		setError(null);
-		setSuccess('Vous êtes bien inscrit!');
+				setError(error.response.data.message);
+			});
 
 	};
 

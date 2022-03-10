@@ -11,13 +11,13 @@ exports.signup = async (req, res, next) => {
     const password_regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
     try {
         if (!req.body.lastname || !req.body.firstname || !req.body.username || !req.body.email || !req.body.password) {
-            return res.status(201).json({ message: 'Il faut remplir tous les champs!' })
+            return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
         }
         if (!email_regex.test(req.body.email)) {
-            return res.status(201).json({ message: "Le format d'email n'est pas correct" })
+            return res.status(400).json({ message: "Le format d'email n'est pas correct" })
         }
         if (!password_regex.test(req.body.password)) {
-            return res.status(201).json({ message: "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial" })
+            return res.status(400).json({ message: "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial" })
         }
         const isEmailExist = await Users.findOne({
             attributes: ["email"],
@@ -41,11 +41,11 @@ exports.signup = async (req, res, next) => {
                     firstname: req.body.firstname,
                     username: req.body.username,
                     email: req.body.email,
-                    isAdminAccount : req.body.isAdminAccount,
+                    isAdminAccount: req.body.isAdminAccount,
                     password: hash
                 });
                 user.save()
-                    .then(() => res.status(201).json({ message: 'Nouvelle utilisateur créé !' }))
+                    .then(() => res.status(201).json({ message: 'Votre compte est crée avec succès!' }))
                     .catch(error => res.status(400).json({ error }));
             })
             .catch(error => res.status(500).json({ error }));
