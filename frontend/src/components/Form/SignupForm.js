@@ -75,13 +75,13 @@ const SignupForm = () => {
 			label: 'Mot de passe',
 			value: password,
 			onChange: (e) => setPassword(e.target.value),
-			type: 'mot de passe',
+			type: "password",
 		},
 		{
 			label: 'Verifier Mot de passe',
 			value: confirmPass,
 			onChange: (e) => setConfirmPass(e.target.value),
-			type: 'mot de passe',
+			type: "password",
 		},
 	];
 	return (

@@ -56,15 +56,18 @@ exports.signup = async (req, res, next) => {
 
 // Permet de ce connecter a un compte existant
 exports.login = (req, res, next) => {
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
+    };
     Users.findOne({ where: { email: req.body.email } })
         .then(user => {
             if (!user) {
-                return res.status(401).json({ error: 'Utilisateur introuvable !' });
+                return res.status(401).json({ message: 'Utilisateur introuvable !' });
             }
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                        return res.status(401).json({ message: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
                         id: user.id,
@@ -80,7 +83,9 @@ exports.login = (req, res, next) => {
                             },
                             process.env.TOKEN,
                             { expiresIn: '24h' }
-                        )
+                        ), 
+                        message: "Vous êtes bien connecté"
+                        
                     });
                 })
                 .catch(error => res.status(500).json({ error }));

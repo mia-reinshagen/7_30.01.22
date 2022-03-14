@@ -12,28 +12,37 @@ import {
 	FormTitle,
 } from './FormStyles';
 import { Container } from '../../globalStyles';
-import validateForm from './validateForm';
+import axios from "axios";
+import { useHistory } from 'react-router-dom';
+
 
 const SigninForm = () => {
-	
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
+	const history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const resultError = validateForm({ email, password });
 
-		if (resultError !== null) {
-			setError(resultError);
-			return;
+		const connectUser = {
+			email: email,
+			password: password,
 		}
-	
-		setEmail('');
-		setPassword('');
-		setError(null);
-		setSuccess('Vous êtes bien connecté');
+
+		axios.post("http://localhost:3500/api/auth/login", connectUser)
+			.then((response) => {
+				setEmail('');
+				setPassword('');
+				setSuccess(response.data.message);
+				setError('');
+				history.push('/');
+
+			}).catch(error => {
+				setError(error.response.data.message);
+			});
 	};
 
 	const messageVariants = {
@@ -42,15 +51,15 @@ const SigninForm = () => {
 	};
 
 	const formData = [
-		
+
 		{ label: 'Email', value: email, onChange: (e) => setEmail(e.target.value), type: 'email' },
 		{
 			label: 'Mot de passe',
 			value: password,
 			onChange: (e) => setPassword(e.target.value),
-			type: 'mot de passe',
+			type: "password",
 		},
-	
+
 	];
 	return (
 		<FormSection>
@@ -71,7 +80,7 @@ const SigninForm = () => {
 								</FormInputRow>
 							))}
 
-							<FormButton type="submit">Signin</FormButton>
+							<FormButton type="submit">Sign in</FormButton>
 						</FormWrapper>
 						{error && (
 							<FormMessage

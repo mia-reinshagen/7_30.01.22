@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { FaFileExcel } from 'react-icons/fa';
 
 export const ContentRow = styled.div`
 	display: flex;
@@ -141,4 +142,8 @@ export const ContentButton = styled(motion.button)`
 	&:hover {
 		color: ${({ inverse }) => (inverse ? 'white' : 'black')};
 	}
+`;
+
+export const Icons = styled.div`
+display: flex;
 `;

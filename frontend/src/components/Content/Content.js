@@ -5,10 +5,10 @@ import {
 	TextWrapper,
 	TopLine,
 	Heading,
-	ContentButton,
 	Subtitle,
 	ImgWrapper,
 	Img,
+	Icons,
 	ContentColumn,
 } from './ContentStyles.js';
 
@@ -20,7 +20,6 @@ export const Content = ({
 	topLine,
 	headline,
 	description,
-	buttonLabel,
 	img,
 	alt,
 	inverse,
@@ -69,17 +68,13 @@ export const Content = ({
 							>
 								{description}
 							</Subtitle>
-							<ContentButton
-								initial={initial}
-								transition={{ delay: 1, duration: 0.6 }}
-								animate={animation}
-								inverse={inverse}
-								primary={primary}
-							>
-								{buttonLabel}
 
-							</ContentButton>
+
 						</TextWrapper>
+						<Icons>
+							<i class="fas fa-heart"></i>
+							<i class="fas fa-comment"></i>
+						</Icons>
 					</ContentColumn>
 					<ContentColumn
 						initial={initial}
