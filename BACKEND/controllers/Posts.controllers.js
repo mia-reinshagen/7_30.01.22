@@ -31,42 +31,55 @@ exports.userPost = async (req, res, next) => {
 };
 
 // Créer un post 
-exports.createPost = async (req, res, next) => {
-    console.log(req)
+exports.createPost = async (req, res) => {
+    console.log(req.body)
+    console.log(req.file)
+   
+        if (!req.body.postTitle || !req.body.postText) {
+            return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
+        }
+
       try {
       
           if (req.file == undefined) {
             Posts.create({
-              UserId: req.body.userId,
+              UserId: req.body.UserId,
               username: req.body.username,
+              postTitle: req.body.postTitle,
               postText: req.body.postText
-            }).then(() => {
-              return res.send(`Publication sans image crée`);
+            }).then((postDatas) => {
+             return res.status(200).json(postDatas);
             })
           } else {
+            
             Posts.create({
-              UserId: req.body.userId,
+              UserId: req.body.UserId,
               type: req.file.mimetype,
               name: req.file.originalname,
               filename: req.file.filename,
               username: req.body.username,
+              postTitle: req.body.postTitle,
               postText: req.body.postText,
               data: fs.readFileSync(
                   "../backend/images/uploads/" + req.file.filename
               ),
-              }).then((image) => {
+              }).then((postDatas_image) => {
               fs.writeFileSync(
-                  "../backend/images/tmp/" + image.name,
-                  image.data
-              );
+                  "../backend/images/tmp/" + postDatas_image.name,
+                  postDatas_image.data
+              )
       
-            return res.send(`Publication avec Image crée`);
+            return res.status(200).json(postDatas_image);
+          }).catch(error=>{
+            return res.status(400).json(error);
           });
           }
         } catch (error) {
-          return res.send(`Echec du telechargement du post: ${error}`);
+          return res.status(401).json(`Echec du telechargement du post: ${error}`);
         }
-  };
+            },(error, req, res, next) => {
+            res.status(400).json({ error: error.message })
+            };
   
   // Supprimer un post 
 exports.deletePost = async (req, res, next) => {

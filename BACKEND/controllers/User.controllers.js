@@ -4,13 +4,14 @@ const jwt = require('jsonwebtoken');
 
 const { Users } = require("../models");
 
+ const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ const password_regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
 // Permet de crée un utilisateur
 exports.signup = async (req, res, next) => {
     console.log(req.body);
-    const email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const password_regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,}$/;
+   
     try {
-        if (!req.body.lastname || !req.body.firstname || !req.body.username || !req.body.email || !req.body.password) {
+        if (!req.body.username || !req.body.email || !req.body.password) {
             return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
         }
         if (!email_regex.test(req.body.email)) {
@@ -37,8 +38,6 @@ exports.signup = async (req, res, next) => {
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 const user = new Users({
-                    lastname: req.body.lastname,
-                    firstname: req.body.firstname,
                     username: req.body.username,
                     email: req.body.email,
                     isAdminAccount: req.body.isAdminAccount,
@@ -55,45 +54,57 @@ exports.signup = async (req, res, next) => {
 };
 
 // Permet de ce connecter a un compte existant
-exports.login = (req, res, next) => {
-    if (!req.body.email || !req.body.password) {
-        return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
-    };
-    Users.findOne({ where: { email: req.body.email } })
-        .then(user => {
+exports.login = async (req, res, next) => {
+    console.log(req.body)
+     if (!req.body.email || !req.body.password) {
+            return res.status(400).json({ message: 'Il faut remplir tous les champs!' })
+        }
+
+         if (!email_regex.test(req.body.email)) {
+            return res.status(400).json({ message: "Le format d'email n'est pas correct" })
+        }
+
+      const user = await  Users.findOne({ where: { email: req.body.email } });
+      console.log(user)
+
             if (!user) {
-                return res.status(401).json({ message: 'Utilisateur introuvable !' });
+                 return res.status(400).json({ message: "Cet utilisateur n'est pas inscrit !" })
             }
+
+
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ message: 'Mot de passe incorrect !' });
+                        return res.status(400).json({ message: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
                         id: user.id,
-                        firstname: user.firstname,
-                        lastname: user.lastname,
                         username: user.username,
                         isAdmin: user.isAdminAccount,
                         token: jwt.sign(
                             {
                                 id: user.id,
-                                firstname: user.firstname,
+                                username: user.username,
                                 isAdmin: user.isAdminAccount,
                             },
                             process.env.TOKEN,
                             { expiresIn: '24h' }
-                        ), 
-                        message: "Vous êtes bien connecté"
-                        
+                        )
                     });
                 })
                 .catch(error => res.status(500).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
 };
 
-// Récupère les info d'un utilisateur
+/* ceci permet de vérifier un utlisateur authentifié avec token existant */
+
+exports.authUser = async (req, res) => {
+    const id = req.userId;
+    const user = await Users.findByPk(id, {
+        attributes: { exclude: ["password"] },
+    });
+    res.json(user)
+}
+// Récupère les info d'un utilisateur par son id
 exports.userInfo = async (req, res, next) => {
     const id = req.params.id;
     const userInfo = await Users.findByPk(id, {
