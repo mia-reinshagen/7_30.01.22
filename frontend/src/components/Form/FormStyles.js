@@ -57,8 +57,15 @@ export const FormWrapper = styled.form`
 	width: 100%;
 `;
 
-export const FormMessage = styled(motion.div)`
-	color: ${({ error }) => (error ? 'red' : 'green')};
+export const FormError = styled(motion.div)`
+	color: #f00;
+	padding: 5px;
+	text-align: center;
+	margin-top: 1rem;
+`;
+
+export const FormSuccess = styled(motion.div)`
+	color: #0f0;
 	padding: 5px;
 	text-align: center;
 	margin-top: 1rem;
@@ -78,6 +85,18 @@ export const FormInputRow = styled.div`
 	}
 `;
 export const FormInput = styled.input`
+	display: block;
+	padding-left: 10px;
+	outline: none;
+	border-radius: 2px;
+	height: 40px;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #cfcfcf;
+	font-size: 1rem;
+`;
+
+export const FormTextArea = styled.textarea`
 	display: block;
 	padding-left: 10px;
 	outline: none;

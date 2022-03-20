@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaFileExcel } from 'react-icons/fa';
 
 export const ContentRow = styled.div`
 	display: flex;
@@ -85,7 +84,7 @@ export const Heading = styled(motion.h2)`
 	font-size: 3rem;
 	line-height: 1.1;
 	font-weight: 600;
-	color: ${({ inverse }) => (inverse ? '#0c4577' : 'white')};
+	color: ${(inverse) => (inverse ? "#0c4577" : "white")};
 
 	@media screen and (max-width: 768px) {
 		text-align: center;
@@ -96,7 +95,7 @@ export const Subtitle = styled(motion.p)`
 	max-width: 440px;
 	margin-bottom: 35px;
 	line-height: 24px;
-	color: ${({ inverse }) => (inverse ? '#6a6a6a' : 'white')};
+	color: ${( inverse ) => (inverse ? '#6a6a6a' : 'white')};
 `;
 
 export const ContentButton = styled(motion.button)`
@@ -142,8 +141,4 @@ export const ContentButton = styled(motion.button)`
 	&:hover {
 		color: ${({ inverse }) => (inverse ? 'white' : 'black')};
 	}
-`;
-
-export const Icons = styled.div`
-display: flex;
 `;

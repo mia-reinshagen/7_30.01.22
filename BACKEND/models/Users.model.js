@@ -1,13 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     const Users = sequelize.define("Users", {
-        lastname: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        firstname: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         username: {
             type: DataTypes.STRING,
             unique: true,
@@ -40,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "avatar.png"
+        },
+         filename: {
+          type: DataTypes.STRING,
         },
         data: {
             type: DataTypes.BLOB("long"),

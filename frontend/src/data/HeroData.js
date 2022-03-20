@@ -13,7 +13,7 @@ export const heroOne = {
 	start: 'true',
 };
 
-/* export const heroTwo = {
+export const heroTwo = {
 	reverse: false,
 	inverse: false,
 	topLine: {
@@ -29,6 +29,7 @@ export const heroOne = {
 	start: 'true',
 };
 
+
 export const heroThree = {
 	reverse: true,
 	inverse: true,
@@ -38,11 +39,10 @@ export const heroThree = {
 	headline: 'Why us? ',
 	description:
 		'Our 9 year experience have allowed us to use the most innovative technologies and methodologies',
-	buttonLabel: 'View Project',
+	buttonLabel: 'Ajouter un Post',
 
 	linkTo: '/download',
-	imgStart: '',
-	img: './assets/svg/ChartUp.svg',
+	imgStart: 'https://images.unsplash.com/photo-1647369139697-ddf46605e26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+	img: 'https://images.unsplash.com/photo-1647369139697-ddf46605e26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
 	start: 'true',
 };
-*/

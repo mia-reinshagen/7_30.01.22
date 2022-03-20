@@ -1,7 +1,14 @@
 import React from 'react';
+import { Content } from '../components/Content/Content';
+import { heroThree } from '../data/HeroData';
 
-function Profil() {
-	return <div>Profil</div>
-}
 
-export default Profil;
+const Home = () => {
+	return (
+        <div>
+        <Content {...heroThree} />
+        </div>
+	);
+};
+
+export default Home;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import {
 	FormColumn,
 	FormWrapper,
@@ -7,21 +7,26 @@ import {
 	FormRow,
 	FormLabel,
 	FormInputRow,
-	FormMessage,
+	FormSuccess,
+	FormError,
 	FormButton,
 	FormTitle,
 } from './FormStyles';
 import { Container } from '../../globalStyles';
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
+import { GlobalContext } from '../../Context/globalContext';
 
 
 const SigninForm = () => {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState(null);
-	const [success, setSuccess] = useState(null);
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
+
+	const { appContext,setAppContext } = useContext(GlobalContext);
+
 	const history = useHistory();
 
 	const handleSubmit = (e) => {
@@ -34,14 +39,22 @@ const SigninForm = () => {
 
 		axios.post("http://localhost:3500/api/auth/login", connectUser)
 			.then((response) => {
-				setEmail('');
-				setPassword('');
-				setSuccess(response.data.message);
+				console.log(response.data.token)
+				localStorage.setItem("connectedToken", response.data.token);
+
+				setAppContext({...appContext,authState:{
+				username: response.data.username,
+				userid: response.data.id,
+				isconnected: true,
+				isadmin: response.data.isAdmin,
+				}});
+
 				setError('');
 				history.push('/');
 
 			}).catch(error => {
 				setError(error.response.data.message);
+        setSuccess("")
 			});
 	};
 
@@ -83,23 +96,23 @@ const SigninForm = () => {
 							<FormButton type="submit">Sign in</FormButton>
 						</FormWrapper>
 						{error && (
-							<FormMessage
+							<FormError
 								variants={messageVariants}
 								initial="hidden"
 								animate="animate"
-								error
+					
 							>
 								{error}
-							</FormMessage>
+							</FormError>
 						)}
 						{success && (
-							<FormMessage
+							<FormSuccess
 								variants={messageVariants}
 								initial="hidden"
 								animate="animate"
 							>
 								{success}
-							</FormMessage>
+							</FormSuccess>
 						)}
 					</FormColumn>
 				</FormRow>

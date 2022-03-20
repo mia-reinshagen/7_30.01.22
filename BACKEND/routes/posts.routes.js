@@ -1,18 +1,22 @@
-// Route pour les posts 
-const express = require("express");
+// Route pour les utilisateur 
+const express = require('express');
 const router = express.Router();
+// const bouncer = require('express-bouncer')(10000, 60000, 5);
+
+const passwordValidator = require("../middleware/passwordValidator")
 const auth = require('../middleware/auth')
-const multer = require('../middleware/multer-config')
+const multer = require('../middleware/multer-config');
 
-const postCtrl = require('../controllers/Posts.controllers');
+const userCtrl = require('../controllers/User.controllers');
 
-router.get('/', auth, postCtrl.allPosts);
-router.get('/:id', auth, postCtrl.onePost);
-router.get('/userPost/:id', postCtrl.userPost);
-router.post('/createPost', auth, multer.single('file'), postCtrl.createPost);
-router.post('/likes', auth, postCtrl.createLike);
-router.delete('/:postId', auth, postCtrl.deletePost);
-
+// Route pour crée un compte, et route de connexion
+router.post('/signup', userCtrl.signup);
+// router.post('/login', bouncer.block, userCtrl.login);
+router.post('/login', userCtrl.login);
+router.get("/userinfo/:id", auth, userCtrl.userInfo);
+router.get("/authuser", auth, userCtrl.authUser);
+router.put("/editpassword/:id", auth, userCtrl.editPassword);
+router.put("/editpicture/:id", auth, multer.single('file'), userCtrl.editPicture);
+router.delete("/userinfo/:id", auth, userCtrl.deleteUser);
 
 module.exports = router;
-
