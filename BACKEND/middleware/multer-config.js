@@ -1,11 +1,16 @@
 // Creation du Middleware Multer, pour la gestion et sauvegarde d'images
 const multer = require("multer");
 
-const imageFilter = (req, file, cb) => {
+const imageFilter = (req,file, cb,res) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
-    cb("Veuillez charger une image.", false);
+    if (!file.originalname.match(/\.(png|jpg)$/)) { 
+           // upload only png and jpg format
+           return cb(new Error('Please upload a Image'))
+         }
+       cb(undefined, true)
+    
   }
 };
 

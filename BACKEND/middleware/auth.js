@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        const token = req.header("Token");
+        const token = req.header("connectedToken");
         if (!token) {
             return res.status(401).json({ message: 'token inexistant!' })
         }
