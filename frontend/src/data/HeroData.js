@@ -34,12 +34,12 @@ export const heroThree = {
 	reverse: true,
 	inverse: true,
 	topLine: {
-		text: 'Highly reputed brand',
+		text: 'Votre Profil',
 	},
-	headline: 'Why us? ',
+	headline: 'Pseudo',
 	description:
-		'Our 9 year experience have allowed us to use the most innovative technologies and methodologies',
-	buttonLabel: 'Ajouter un Post',
+		'Votre profil a été crée le 04.03.2022',
+	buttonLabel: 'modifier mon profil',
 
 	linkTo: '/download',
 	imgStart: 'https://images.unsplash.com/photo-1647369139697-ddf46605e26b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
