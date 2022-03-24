@@ -1,0 +1,10 @@
+.like {
+    color: black;
+    position: relative;
+    top: -100px;
+    left: 51%;
+}
+
+.like:hover{
+    color:red;
+}

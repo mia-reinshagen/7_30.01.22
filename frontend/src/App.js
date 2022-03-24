@@ -3,6 +3,7 @@ import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route,Redirect } from 'react-router-dom';
 import { GlobalContext } from './Context/globalContext';
 import axios from 'axios';
+import "./app.css";
 //Pages
 
 import Home from './pages/Home.pages';
@@ -12,6 +13,7 @@ import Profil from './pages/Profil.pages';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import PostCreate from './pages/PostCreate.pages';
+import OnePost from './pages/Post.pages';
 
 
 
@@ -68,7 +70,8 @@ function App() {
                 <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
                 <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/>
                 <Route path="/createpost" exact={true} component={()=> {return appContext.authState.isconnected ? <PostCreate/> : < Redirect to="/" />}}/>
-			</Switch>
+                <Route path="/post/:id" exact component={OnePost} />
+      </Switch>
       <Footer />
 			
 		</Router>

@@ -40,23 +40,22 @@ const Home = () => {
         appContext.postsState.map((post)=>{
                 console.log(post.filename)
         return(
-        <Content
-          postid = {post.id}
-          {...{
-            reverse: true,
-            inverse: true,
-            topLine: {
-              text: `post créé par : ${post.username}`,
-            },
-            headline: `${post.postTitle}`,
-            description: `${post.postText}`,
-            buttonLabel: "en savoir plus",
-            imgStart: "start",
-            img: `http://localhost:3500/images/uploads/${post.filename}`,
-            like: "https://cdn.pixabay.com/photo/2018/10/11/00/03/like-3738701_1280.png",
-            start: "true",
-          }}
-        />)})}
+        <><Content
+                postid={post.id}
+                {...{
+                    reverse: true,
+                    inverse: true,
+                    topLine: {
+                        text: `post créé par : ${post.username}`,
+                    },
+                    headline: `${post.postTitle}`,
+                    description: `${post.postText}`,
+                    buttonLabel: "écrire un commentaire",
+                    imgStart: "start",
+                    img: `http://localhost:3500/images/uploads/${post.filename}`,
+                    like: "https://icon-library.com/images/like-png-icon/like-png-icon-1.jpg",
+                    start: "true",
+                }} /><span class="like"><i class="fas fa-heart"></i>0</span></>)})}
       </div>
     );
   };

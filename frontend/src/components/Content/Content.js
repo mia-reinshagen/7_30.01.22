@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link, useHistory } from "react-router-dom";
 import { Container, Section } from '../../globalStyles';
 import {
 	ContentRow,
@@ -16,6 +17,7 @@ import { useInView } from 'react-intersection-observer';
 import { useAnimation } from 'framer-motion';
 
 export const Content = ({
+	postid,
 	primary,
 	topLine,
 	headline,
@@ -30,6 +32,7 @@ export const Content = ({
 	const animation = useAnimation();
 
 	const { ref, inView } = useInView({ threshold: 0.2 });
+	const history = useHistory();
 
 	useEffect(() => {
 		if (inView) {
@@ -39,6 +42,10 @@ export const Content = ({
 			});
 		}
 	}, [inView, animation]);
+
+	const showOnePost = () =>{
+		  history.push(`/post/${postid}`)
+	}
 
 	return (
 		<Section inverse={inverse} ref={ref}>
@@ -75,6 +82,7 @@ export const Content = ({
 								animate={animation}
 								inverse={inverse.toString()}
 								primary={primary}
+								onClick={showOnePost}
 							>
 								{buttonLabel}
 

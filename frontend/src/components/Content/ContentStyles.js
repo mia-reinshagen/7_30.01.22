@@ -8,7 +8,6 @@ export const ContentRow = styled.div`
 	align-items: center;
 	flex-direction: ${({ reverse }) => (reverse ? 'row-reverse' : 'row')};
 	justify-content: space-around;
-
 	@media screen and (max-width: 768px) {
 		flex-direction: column-reverse;
 	}
@@ -33,7 +32,6 @@ export const ContentColumn = styled(motion.div)`
 export const TextWrapper = styled.div`
 	max-width: 540px;
 	padding-top: 0;
-
 	@media screen and (max-width: 768px) {
 		padding-bottom: 65px;
 		> h1,
@@ -44,7 +42,6 @@ export const TextWrapper = styled.div`
 		flex-direction: column;
 		align-items: center;
 	}
-
 	> img {
 		width: 300px;
 		margin-left: -3px;
@@ -81,11 +78,10 @@ export const Img = styled(motion.img)`
 
 export const Heading = styled(motion.h2)`
 	margin-bottom: 24px;
-	font-size: 3rem;
+	font-size: 2rem;
 	line-height: 1.1;
 	font-weight: 600;
 	color: ${(inverse) => (inverse ? "#0c4577" : "white")};
-
 	@media screen and (max-width: 768px) {
 		text-align: center;
 	}
@@ -109,7 +105,6 @@ export const ContentButton = styled(motion.button)`
 	cursor: pointer;
 	background: none;
 	color: ${({ inverse }) => (inverse ? '#0c4577' : 'white')};
-
 	border-radius: 4px;
 	white-space: nowrap;
 	padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
@@ -119,7 +114,6 @@ export const ContentButton = styled(motion.button)`
 	cursor: pointer;
 	position: relative;
 	overflow: hidden;
-
 	&:before {
 		background: ${({ inverse }) => (inverse ? '#0c4577' : 'white')};
 		content: '';
@@ -133,11 +127,9 @@ export const ContentButton = styled(motion.button)`
 		height: 0%;
 		transform: translate(-50%, -50%) rotate(45deg);
 	}
-
 	&:hover:before {
 		height: 500%;
 	}
-
 	&:hover {
 		color: ${({ inverse }) => (inverse ? 'white' : 'black')};
 	}
