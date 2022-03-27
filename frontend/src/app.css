@@ -8,3 +8,33 @@
 .like:hover{
     color:red;
 }
+
+.addComs {
+    position: absolute;
+    left: 51%;
+    top: 350px;
+    padding: 10px;
+    background-color: pink;
+    box-sizing: border-box;
+    border-bottom-left-radius: 2px 2px;
+    border-bottom-right-radius: 2px 2px;
+}
+
+.listeCommentaires {
+    position: absolute;
+    left: 15%;
+    top: 30%;
+}
+.commentaire {
+    border: 1px solid black;
+    margin: 10px;
+    width: 350px;
+}
+.divBtn{
+    margin: 10px;
+    color: purple;
+}
+
+body {
+    height: 100vh;
+}

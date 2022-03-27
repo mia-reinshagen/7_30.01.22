@@ -37,10 +37,11 @@ const Home = () => {
     return (
       <div>
         {
-        appContext.postsState.map((post)=>{
+        appContext.postsState.map((post, index)=>{
                 console.log(post.filename)
         return(
-        <><Content
+        <><Content 
+        key = {index}
                 postid={post.id}
                 {...{
                     reverse: true,
@@ -55,7 +56,7 @@ const Home = () => {
                     img: `http://localhost:3500/images/uploads/${post.filename}`,
                     like: "https://icon-library.com/images/like-png-icon/like-png-icon-1.jpg",
                     start: "true",
-                }} /><span class="like"><i class="fas fa-heart"></i>0</span></>)})}
+                }} /><span className='like'><i class="fas fa-heart"></i>0</span></>)})}
       </div>
     );
   };

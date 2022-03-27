@@ -6,7 +6,7 @@ export const FooterContainer = styled.section`
 	background-color: #ccc;
 	padding: 4rem 0 2rem 0;
 	background-color: pink;
-
+	position : relative;
 `;
 
 
