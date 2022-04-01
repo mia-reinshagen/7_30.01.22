@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import { Content } from '../components/Content/Content';
 import { GlobalContext } from "../Context/globalContext";
+import { ContentPost } from "../components/Content/ContentPost";
 
 
 
@@ -36,7 +37,7 @@ const OnePost = () => {
                 });
         }
 
-    }, [])
+    }, [id])
 
     const addComment = () => {
         axios.post("http://localhost:3500/api/comments", {
@@ -56,14 +57,14 @@ const OnePost = () => {
                         username: response.data.username,
                     };
                     setNewComment(newComment);
-                    window.location.reload(`/post/${id}`)
+                    history.push(`/post/${id}`)
                 }
             });
     }
 
     return (
         <div>
-            <Content
+            <ContentPost
 
                 postid={post.id}
                 {...{
@@ -74,6 +75,7 @@ const OnePost = () => {
                     },
                     headline: `${post.postTitle}`,
                     description: `${post.postText}`,
+                    buttonLabel: "supprimer",
                     imgStart: "start",
                     img: `http://localhost:3500/images/uploads/${post.filename}`,
                     start: "true",
@@ -83,7 +85,7 @@ const OnePost = () => {
             />
             <div className="postFoot1">
                 <div className="addComs">
-                    <input type="text" placeholder="Ajoutez un commentaire" value={newComment} onChange={(e)=> setNewComment(e.target.value)}/>
+                    <textarea  placeholder="Ajoutez un commentaire" value={newComment} onChange={(e)=> setNewComment(e.target.value)}/>
                     <button onClick={addComment}>Publier</button>
                 </div>
                 <div className="listeCommentaires">

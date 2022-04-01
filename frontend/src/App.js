@@ -18,7 +18,7 @@ import './app.css';
 
 function App() {
 
-	const [appContext, setAppContext] = useState({
+  const [appContext, setAppContext] = useState({
     authState : {
                   username: "",
                   userid: 0,
@@ -37,7 +37,7 @@ function App() {
         },
       })
       .then((response) => { 
-		  console.log(response)
+      console.log(response)
         if (response.data.error) {
           setAppContext({ 
             ...appContext,
@@ -50,7 +50,7 @@ function App() {
             userid: response.data.id,
             isconnected: true,
             isadmin: response.data.isAdminAccount,
-			      imgprofil: response.data.name
+            imgprofil: response.data.name
             }
           });
         }
@@ -59,23 +59,25 @@ function App() {
 
 
   return (
-	   <GlobalContext.Provider value={{ appContext, setAppContext}}>
-		<Router>
-			<GlobalStyle />
-			<Navbar/>
-			<Switch>
-				<Route path="/" exact component={Home} />
-				 <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
+     <GlobalContext.Provider value={{ appContext, setAppContext}}>
+    <Router>
+      <GlobalStyle />
+      <Navbar/>
+      <Switch>
+       
+          <Route path="/" exact component={Home}/>
+         <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
                 <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
                 <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/>
                 <Route path="/createpost" exact={true} component={()=> {return appContext.authState.isconnected ? <PostCreate/> : < Redirect to="/" />}}/>
                 <Route path="/post/:id" exact component={OnePost} />
-			</Switch>
+
+      </Switch>
       <Footer />
-			
-		</Router>
-	</GlobalContext.Provider>
-	);
+      
+    </Router>
+  </GlobalContext.Provider>
+  );
 }
 
 export default App;

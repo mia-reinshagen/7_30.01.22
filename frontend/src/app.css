@@ -1,8 +1,9 @@
 .like {
     color: black;
-    position: relative;
-    top: -100px;
-    left: 51%;
+    position:absolute;
+     top: -100px; 
+    left: 40%;
+    z-index: 100;
 }
 
 .like:hover{
@@ -10,25 +11,40 @@
 }
 
 .addComs {
-    position: absolute;
-    left: 51%;
-    top: 350px;
+   display: flex;
+   justify-content: center;
+   width: 100%;
     padding: 10px;
-    background-color: pink;
+
     box-sizing: border-box;
     border-bottom-left-radius: 2px 2px;
     border-bottom-right-radius: 2px 2px;
+    z-index: 1550;
+}
+
+.addComs>textarea{
+    padding: 5px 20px;
+    width:70%;
+}
+
+.postFoot1{
+ position: relative;
+ width: 50%;
+ left:50px;
+ top:-80px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }
 
 .listeCommentaires {
-    position: absolute;
-    left: 15%;
-    top: 30%;
+   width: 80%;
 }
 .commentaire {
     border: 1px solid black;
     margin: 10px;
-    width: 350px;
+    width: 100%;
 }
 .divBtn{
     margin: 10px;

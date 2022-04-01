@@ -78,6 +78,7 @@ const CreatePostForm = () => {
           };
 
 		  setAppContext({...appContext,postsState:{...appContext.postsState, NewPost}})
+          history.push("/");
           }).catch((err) => {
 		 setError(err.response.data.message)
       });

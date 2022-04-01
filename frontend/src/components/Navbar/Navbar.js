@@ -15,6 +15,7 @@ import {
 import { useLocation, useHistory } from 'react-router-dom';
 import { data } from '../../data/NavbarData';
 import { GlobalContext } from '../../Context/globalContext';
+import logo from '../../assets/logo.png';
 
 const initAppState = {
     authState : {
@@ -80,7 +81,7 @@ const Navbar = () => {
 			<Nav>
 				<NavbarContainer>
 					<NavLogo to="/">
-						<NavIcon src="logo.png" alt="logo" />
+						<NavIcon src={logo} alt="logo" />
 					</NavLogo>
 					<MobileIcon onClick={handleClick}>
 						{show ? <FaTimes /> : <CgMenuRight />}

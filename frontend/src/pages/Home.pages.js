@@ -3,11 +3,13 @@ import { Content } from '../components/Content/Content';
 import { GlobalContext } from '../Context/globalContext';
 import { heroOne } from '../data/HeroData';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 
 const Home = () => {
     const { appContext, setAppContext } = useContext(GlobalContext);
     const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
   
     useEffect(() => {
       setIsLoading(true);
@@ -31,17 +33,19 @@ const Home = () => {
           //       )
           console.log(response.data.listOfPosts);
           setIsLoading(false);
+        }).catch(err=>{
+          console.log(err.response)
+          history.push("/signin");
         });
     }, []);
   
-    return (
-      <div>
+    return ( 
+      <>
         {
-        appContext.postsState.map((post, index)=>{
+        appContext.postsState.length >0 && appContext.postsState.map((post, index)=>{
                 console.log(post.filename)
         return(
-        <><Content 
-        key = {index}
+        <div key = {index} style={{position:'relative'}}><Content 
                 postid={post.id}
                 {...{
                     reverse: true,
@@ -56,8 +60,8 @@ const Home = () => {
                     img: `http://localhost:3500/images/uploads/${post.filename}`,
                     like: "https://icon-library.com/images/like-png-icon/like-png-icon-1.jpg",
                     start: "true",
-                }} /><span className='like'><i class="fas fa-heart"></i>0</span></>)})}
-      </div>
+                }}/><span className='like'><i className="fas fa-heart"></i>0</span></div>)})}
+      </>
     );
   };
   
