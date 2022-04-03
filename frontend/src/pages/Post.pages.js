@@ -56,11 +56,22 @@ const OnePost = () => {
                         comment: newComment,
                         username: response.data.username,
                     };
+                    //setAllComments([]);
                     setNewComment(newComment);
                     history.push(`/post/${id}`)
                 }
             });
-    }
+    };
+
+    const deleteComment = (id) => {
+        axios.delete(`http://localhost:3500/api/comment/${id}`, {
+            headers: {Token: localStorage.getItem("accessToken")},
+        })
+        console.log("commentaire suprimer")
+        //then(() => {
+    //setComment(comment.filter((val) => {return val.id != id}))
+       // });
+    };
 
     return (
         <div>
@@ -89,14 +100,14 @@ const OnePost = () => {
                     <button onClick={addComment}>Publier</button>
                 </div>
                 <div className="listeCommentaires">
-                    {
-                        allComments.map((comment, index) => {
-                            console.log(comment)
+                    {allComments.map((comment, index) => {
                             return (
                                 <div className="commentaire" key={index}>
                                     <label className="commentaireLabel"> Par : {comment.username}</label>
                                     <div> {comment.comment}  </div>
-                                    <button className="divBtn"> X </button>
+                                    <button className="divBtn" onClick={() => {
+                                            deleteComment(Comment.id)
+                                        }}> X </button>
                                 </div>
                             )
                         })
