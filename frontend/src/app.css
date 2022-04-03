@@ -1,56 +1,61 @@
 .like {
-    color: black;
-    position:absolute;
-     top: -100px; 
-    left: 40%;
-    z-index: 100;
+  color: black;
+  position: absolute;
+  top: 140px;
+  left: 51%;
+  z-index: 100;
 }
 
-.like:hover{
-    color:red;
+.like:hover {
+  color: pink;
 }
 
 .addComs {
-   display: flex;
-   justify-content: center;
-   width: 100%;
-    padding: 10px;
-
-    box-sizing: border-box;
-    border-bottom-left-radius: 2px 2px;
-    border-bottom-right-radius: 2px 2px;
-    z-index: 1550;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom-left-radius: 2px 2px;
+  border-bottom-right-radius: 2px 2px;
+  z-index: 1550;
+  margin : 30px;
 }
 
-.addComs>textarea{
-    padding: 5px 20px;
-    width:70%;
+.addComs > textarea {
+  padding: 5px 20px;
+  width: 70%;
 }
 
-.postFoot1{
- position: relative;
- width: 50%;
- left:50px;
- top:-80px;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
+.postFoot1 {
+  position: relative;
+  width: 40%;
+  left: 50%;
+  top: -200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: pink;
+  padding: 6px;
 }
 
 .listeCommentaires {
-   width: 80%;
+  width: 80%;
 }
 .commentaire {
-    border: 1px solid black;
-    margin: 10px;
-    width: 100%;
+  border: 2px solid black;
+  margin: 10px;
+  width: 100%;
+  padding: 7px;
 }
-.divBtn{
-    margin: 10px;
-    color: purple;
+.divBtn {
+    position:relative;
+  margin: 15px;
+  color: pink;
+
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
 }

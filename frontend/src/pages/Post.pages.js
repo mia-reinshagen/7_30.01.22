@@ -85,7 +85,7 @@ const OnePost = () => {
             />
             <div className="postFoot1">
                 <div className="addComs">
-                    <textarea  placeholder="Ajoutez un commentaire" value={newComment} onChange={(e)=> setNewComment(e.target.value)}/>
+                    <textarea placeholder="Ajoutez un commentaire" value={newComment} onChange={(e) => setNewComment(e.target.value)} />
                     <button onClick={addComment}>Publier</button>
                 </div>
                 <div className="listeCommentaires">
