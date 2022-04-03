@@ -55,7 +55,7 @@ const Home = () => {
                                 },
                                 headline: `${post.postTitle}`,
                                 description: `${post.postText}`,
-                                buttonLabel: "écrire un commentaire",
+                                buttonLabel: "Voir le detail du Post",
                                 imgStart: "start",
                                 img: `http://localhost:3500/images/uploads/${post.filename}`,
                                 like: "https://icon-library.com/images/like-png-icon/like-png-icon-1.jpg",

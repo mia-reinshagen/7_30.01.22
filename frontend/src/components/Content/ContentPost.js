@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { Container, Section } from '../../globalStyles';
 import {
@@ -16,6 +16,11 @@ import {
 import { useInView } from 'react-intersection-observer';
 import { useAnimation } from 'framer-motion';
 import axios from "axios";
+//import { GlobalContext } from "../Context/globalContext";
+import { useContext } from 'react';
+import { GlobalContext } from '../../Context/globalContext';
+import OnePost from '../../pages/Post.pages';
+
 
 
 export const ContentPost = ({
@@ -30,27 +35,36 @@ export const ContentPost = ({
 	inverse,
 	reverse,
 }) => {
+	const [onePost, setOnePost] = useState({});
 	const initial = { opacity: 0, y: 30 };
 	const animation = useAnimation();
 
 	const { ref, inView } = useInView({ threshold: 0.2 });
 	const history = useHistory();
+	const { appContext } = useContext(GlobalContext);
+	const post1 = appContext.postsState.filter(post => post.id == postid);
+	useEffect(() => {
+		if(postid){
+			setOnePost(post1[0]);
+		console.log(post1)}
+		
+	}, [postid]);
 
 	useEffect(() => {
 		if (inView) {
 			animation.start({
 				opacity: 1,
-				y: 0,
+				y: 1,
 			});
 		}
-	}, [inView, animation]);
+	}, [inView, animation, postid]);
 
-	const deletePost = () =>{
+	const deletePost = () => {
 		axios.delete(`http://localhost:3500/api/post/${postid}`, {
 			headers: { connectedToken: localStorage.getItem("connectedToken") }
 		})
 			.then(response => {
-			 history.push("/");
+				history.push("/");
 			});
 	}
 
@@ -83,17 +97,19 @@ export const ContentPost = ({
 							>
 								{description}
 							</Subtitle>
-							<ContentButton
-								initial={initial}
-								transition={{ delay: 1, duration: 0.6 }}
-								animate={animation}
-								inverse={inverse.toString()}
-								primary={primary}
-								onClick={deletePost}
-							>
-								{buttonLabel}
+							{console.log(appContext.authState.username == onePost.username)}
+							{(appContext.authState.username == onePost.username || appContext.authState.isadmin == true) && (
+								<ContentButton
+									initial={initial}
+									transition={{ delay: 1, duration: 0.6 }}
+									animate={animation}
+									inverse={inverse.toString()}
+									primary={primary}
+									onClick={deletePost}
+								>
+									{buttonLabel}
 
-							</ContentButton>
+								</ContentButton>)}
 						</TextWrapper>
 					</ContentColumn>
 					<ContentColumn

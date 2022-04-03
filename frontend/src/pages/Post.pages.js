@@ -56,21 +56,19 @@ const OnePost = () => {
                         comment: newComment,
                         username: response.data.username,
                     };
-                    //setAllComments([]);
+                    setAllComments([...allComments, commentAdd]);
                     setNewComment(newComment);
-                    history.push(`/post/${id}`)
+                    //history.push(`/post/${id}`)
                 }
             });
     };
 
     const deleteComment = (id) => {
-        axios.delete(`http://localhost:3500/api/comment/${id}`, {
-            headers: {Token: localStorage.getItem("accessToken")},
-        })
-        console.log("commentaire suprimer")
-        //then(() => {
-    //setComment(comment.filter((val) => {return val.id != id}))
-       // });
+        axios.delete(`http://localhost:3500/api/comments/${id}`, {
+            headers: { connectedToken: localStorage.getItem("connectedToken") },
+        }).then(() => {
+        setAllComments(allComments.filter((comment) => {return comment.id != id}))
+        });
     };
 
     return (
@@ -101,16 +99,16 @@ const OnePost = () => {
                 </div>
                 <div className="listeCommentaires">
                     {allComments.map((comment, index) => {
-                            return (
-                                <div className="commentaire" key={index}>
-                                    <label className="commentaireLabel"> Par : {comment.username}</label>
-                                    <div> {comment.comment}  </div>
-                                    <button className="divBtn" onClick={() => {
-                                            deleteComment(Comment.id)
-                                        }}> X </button>
-                                </div>
-                            )
-                        })
+                        return (
+                            <div className="commentaire" key={index}>
+                                <label className="commentaireLabel"> Par : {comment.username}</label>
+                                <div> {comment.comment}  </div>
+                                <button className="divBtn" onClick={() => {
+                                    deleteComment(comment.id)
+                                }}> X </button>
+                            </div>
+                        )
+                    })
                     }
 
                 </div>
