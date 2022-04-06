@@ -1,61 +1,108 @@
-.like {
-  color: black;
-  position: absolute;
-  top: 140px;
-  left: 51%;
-  z-index: 100;
-}
-
-.like:hover {
-  color: pink;
-}
-
-.addComs {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-  border-bottom-left-radius: 2px 2px;
-  border-bottom-right-radius: 2px 2px;
-  z-index: 1550;
-  margin : 30px;
-}
-
-.addComs > textarea {
-  padding: 5px 20px;
-  width: 70%;
-}
-
-.postFoot1 {
-  position: relative;
-  width: 40%;
-  left: 50%;
-  top: -100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: pink;
-  padding: 6px;
-}
-
-.listeCommentaires {
-  width: 80%;
-}
-.commentaire {
-  border: 2px solid black;
-  margin: 10px;
-  width: 100%;
-  padding: 7px;
-}
-.divBtn {
-    position:relative;
-  margin: 15px;
-  color: pink;
-
-}
-
 body {
-  height: 100vh;
-}
+    height: 100vh;
+  }
+  
+  .noLike {
+    color: black;
+    position: absolute;
+    top: 140px;
+    left: 51%;
+    z-index: 100;
+  }
+  
+  .like {
+    color: rgb(10, 247, 69);
+    position: absolute;
+    top: 140px;
+    left: 51%;
+    z-index: 100;
+  }
+  
+  .like:hover , .noLike:hover {
+    color: pink;
+    cursor:pointer;
+  }
+  
+  .addComs {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 2px 2px;
+    border-bottom-right-radius: 2px 2px;
+    z-index: 1550;
+    margin : 30px;
+  }
+  
+  .addComs > textarea {
+    padding: 5px 20px;
+    width: 70%;
+  }
+  
+  .postFoot1 {
+    position: relative;
+    width: 40%;
+    left: 50%;
+    top: -100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    padding: 6px;
+  }
+  
+  .listeCommentaires {
+    width: 80%;
+  }
+  .commentaire {
+    border: 2px solid black;
+    margin: 10px;
+    width: 100%;
+    padding: 7px;
+  }
+  .divBtn {
+      position:relative;
+    margin: 15px;
+    color: pink;
+  
+  }
+  
+  .nopost{
+    width: 100%;
+      max-width: 1300px;
+      margin-right: auto;
+      margin-left: auto;
+      /* padding: 20vh 50px; */
+    height: 55vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 32px;
+      @media screen and (max-width: 960px) {
+          padding: 0 30px;
+      }
+  }
+  
+  
+  .authComment{
+    display: inline-block;
+    padding: 7px;
+    background-color: rgb(255, 145, 0);
+    color: white;
+    border-radius: 15px;
+    margin-left: 5px;
+  }
+  
+  .commentaireLabel{
+    display: inline-block;
+    margin: 5px 2px 10px 5px;
+  }
+  
+  .fa-trash{
+    color:red;
+  }
+
+  

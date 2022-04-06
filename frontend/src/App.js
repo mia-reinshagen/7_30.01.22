@@ -65,13 +65,12 @@ function App() {
       <Navbar/>
       <Switch>
        
-          <Route path="/" exact component={Home}/>
+               <Route path="/" exact component={Home}/>
          <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
                 <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
                 <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/>
                 <Route path="/createpost" exact={true} component={()=> {return appContext.authState.isconnected ? <PostCreate/> : < Redirect to="/" />}}/>
                 <Route path="/post/:id" exact component={OnePost} />
-
       </Switch>
       <Footer />
       

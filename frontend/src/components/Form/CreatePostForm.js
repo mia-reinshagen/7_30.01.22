@@ -58,8 +58,17 @@ const CreatePostForm = () => {
 			 return;
         }
 
+        const ufile = formData.get('file');
+        
+		   if (ufile.size > 1048576) {
+            setError("Veuiller réduire la taille de l'image ")
+			 return;
+        }
+
         formData.append('username', appContext.authState.username);
 		  formData.append('UserId', appContext.authState.userid)
+
+      
         axios.post('http://localhost:3500/api/post/createPost', formData, {
           headers: {
             "content-Type": "multipart/form-data",

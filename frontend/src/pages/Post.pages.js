@@ -52,11 +52,13 @@ const OnePost = () => {
                 if (response.data.error) {
                     console.log(response.data.error);
                 } else {
+                    console.log(response.data)
                     const commentAdd = {
-                        comment: newComment,
+                        comment: response.data.comment,
                         username: response.data.username,
+                        id:response.data.id
                     };
-                    setAllComments([...allComments, commentAdd]);
+                    setAllComments([commentAdd, ...allComments]);
                     setNewComment(newComment);
                     //history.push(`/post/${id}`)
                 }
@@ -92,7 +94,7 @@ const OnePost = () => {
                 }}
 
             />
-            <div className="postFoot1">
+           <div className="postFoot1">
                 <div className="addComs">
                     <textarea placeholder="Ajoutez un commentaire" value={newComment} onChange={(e) => setNewComment(e.target.value)} />
                     <button onClick={addComment}>Publier</button>
@@ -101,11 +103,12 @@ const OnePost = () => {
                     {allComments.map((comment, index) => {
                         return (
                             <div className="commentaire" key={index}>
-                                <label className="commentaireLabel"> Par : {comment.username}</label>
+                                <label className="commentaireLabel"> Par : <span className="authComment">{comment.username}</span></label>
                                 <div> {comment.comment}  </div>
-                                <button className="divBtn" onClick={() => {
+                               
+                            {(appContext.authState.username == comment.username || appContext.authState.isadmin == true) && (    <button className="divBtn" onClick={() => {
                                     deleteComment(comment.id)
-                                }}> X </button>
+                                }}> <i className="fas fa-trash"></i> </button>)}
                             </div>
                         )
                     })

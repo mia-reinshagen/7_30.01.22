@@ -1,14 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect,useLayoutEffect } from 'react';
 import { Content } from '../components/Content/Content';
 import { GlobalContext } from '../Context/globalContext';
 import { heroOne } from '../data/HeroData';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { Container } from '../globalStyles';
 
 
 const Home = () => {
     const { appContext, setAppContext } = useContext(GlobalContext);
     const [isLoading, setIsLoading] = useState(false);
+    const [postsLiked, setPostsLiked] = useState([])
     const history = useHistory();
 
     useEffect(() => {
@@ -26,23 +28,59 @@ const Home = () => {
                     ...appContext,
                     postsState: [...response.data.listOfPosts],
                 });
-                //       setPostLikes(
-                //         response.data.likedPosts.map((like) => {
-                //           return like.PostId;
-                //         })
-                //       )
+                     setPostsLiked(
+                        response.data.likedPosts.map((like) => {
+                          return like.PostId;
+                        })
+                      )
                 console.log(response.data.listOfPosts);
                 setIsLoading(false);
             }).catch(err => {
                 console.log(err.response)
                 history.push("/signin");
             });
-    }, []);
+    }, [appContext.postsState.length]);
+
+
+
+      const likeUserPost = (postId) => {
+        axios.post("http://localhost:3500/api/post/likes",{ 
+          PostId: postId,
+          UserId: appContext.authState.userid, }, {
+          headers: { connectedToken: localStorage.getItem("connectedToken") } }
+          ).then((response) => {
+            setAppContext({ ...appContext, postsState : appContext.postsState.map((post) => {
+                if (post.id === postId) {
+                  if (response.data.liked) {
+                    return { ...post, Likes: [...post.Likes, 0] };
+                  } else {
+                    const likesArray = post.Likes;
+                    likesArray.pop();
+                    return { ...post, Likes: likesArray };
+                  }
+                } else {
+                  return post;
+                }
+              })
+            });
+    
+            if (postsLiked.includes(postId)) {
+              setPostsLiked(postsLiked.filter((id) => {
+                  return id != postId;
+                })
+              );
+            } else {
+              setPostsLiked([...postsLiked, postId]);
+            }
+          });
+          
+      };
 
     return (
         <>
+         
             {
-                appContext.postsState.length > 0 && appContext.postsState.map((post, index) => {
+                !isLoading ? (appContext.postsState.map((post, index) => {
                     console.log(post.filename)
                     return (
                         <div key={index} style={{ position: 'relative' }}><Content
@@ -60,8 +98,15 @@ const Home = () => {
                                 img: `http://localhost:3500/images/uploads/${post.filename}`,
                                 like: "https://icon-library.com/images/like-png-icon/like-png-icon-1.jpg",
                                 start: "true",
-                            }} /><span className='like'><i className="fas fa-heart"></i>0</span></div>)
-                })}
+                            }} /><span
+                                onClick={() => {likeUserPost(post.id)}}
+                                className={postsLiked.includes(post.id) ? "like" : "noLike"}
+                                >
+                                <i className="fas fa-heart"></i>&nbsp;{post.Likes.length}</span>
+                                </div>)
+                })):(<div className="nopost">En attente de Post ...</div>)
+                
+                }
         </>
     );
 };

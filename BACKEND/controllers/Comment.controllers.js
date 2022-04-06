@@ -14,7 +14,7 @@ exports.createComment = async (req, res, next) => {
 // Récupère tout les commentaires d'un post 
 exports.allComments = (req, res, next) => {
     const PostId = req.params.id;
-    Comments.findAll({where: { PostId: PostId}})
+    Comments.findAll( {where: { PostId: PostId}, order: [["createdAt", "DESC"]]})
         .then(data => res.status(200).json(data))
         .catch(error => res.status(400).json({error}))
 };

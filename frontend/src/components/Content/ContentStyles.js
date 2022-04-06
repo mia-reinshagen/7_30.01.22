@@ -11,6 +11,7 @@ export const ContentRow = styled.div`
     @media screen and (max-width: 768px) {
         flex-direction: column-reverse;
     }
+    
 `;
 
 export const ContentColumn = styled(motion.div)`
@@ -21,6 +22,7 @@ export const ContentColumn = styled(motion.div)`
     z-index: 10;
     display: flex;
     flex-direction: column;
+   
     @media screen and (max-width: 768px) {
         max-width: 100% !important;
         flex-basis: 100%;
@@ -135,4 +137,3 @@ export const ContentButton = styled(motion.button)`
         color: ${({ inverse }) => (inverse ? 'white' : 'black')};
     }
 `;
-

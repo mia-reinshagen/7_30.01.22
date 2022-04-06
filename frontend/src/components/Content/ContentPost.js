@@ -57,7 +57,7 @@ export const ContentPost = ({
 				y: 1,
 			});
 		}
-	}, [inView, animation, postid]);
+	}, [inView, animation,postid,initial]);
 
 	const deletePost = () => {
 		axios.delete(`http://localhost:3500/api/post/${postid}`, {
