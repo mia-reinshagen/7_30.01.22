@@ -151,8 +151,6 @@ exports.editPicture = async (req, res, next) => {
     })
         .then((image) => {
             fs.writeFileSync("../backend/images/tmp/" + image.name, image.data);
-
-
             return res.send(`La photo a été télechargé`);
         });
 };

@@ -8,27 +8,27 @@ exports.createComment = async (req, res, next) => {
     const comment = req.body;
     await Comments.create(comment)
         .then(data => res.status(200).json(data))
-        .catch(error => res.status(400).json({error}))
+        .catch(error => res.status(400).json({ error }))
 };
 
 // Récupère tout les commentaires d'un post 
 exports.allComments = (req, res, next) => {
     const PostId = req.params.id;
-    Comments.findAll( {where: { PostId: PostId}, order: [["createdAt", "DESC"]]})
+    Comments.findAll({ where: { PostId: PostId }, order: [["createdAt", "DESC"]] })
         .then(data => res.status(200).json(data))
-        .catch(error => res.status(400).json({error}))
+        .catch(error => res.status(400).json({ error }))
 };
 
 
-  exports.deleteComment = async (req, res, next) => {
+exports.deleteComment = async (req, res, next) => {
     const commentId = req.params.id;
-    const userComment = await Comments.findOne ({
-        where : {id : commentId}
+    const userComment = await Comments.findOne({
+        where: { id: commentId }
     })
-    if (userComment.UserId == req.userId){
+    if (userComment.UserId == req.userId) {
         Comments.destroy({ where: { id: commentId } });
-        return res.json ({message :"Commentaire supprimé avec succès"});
+        return res.json({ message: "Commentaire supprimé avec succès" });
     } else {
-        return res.json ({message :"Vous ne pouvez pas supprimé ce commentaire"});
+        return res.json({ message: "Vous ne pouvez pas supprimé ce commentaire" });
     }
-  }
+}

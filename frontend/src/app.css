@@ -105,4 +105,9 @@ body {
     color:red;
   }
 
-  
+  .modifProfil{
+    width: 350px;
+    height: 300px;
+    background-color: bisque;
+    text-align: center;
+  }
