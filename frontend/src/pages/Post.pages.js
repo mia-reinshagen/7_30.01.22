@@ -56,7 +56,7 @@ const OnePost = () => {
                     const commentAdd = {
                         comment: response.data.comment,
                         username: response.data.username,
-                        id:response.data.id
+                        id: response.data.id
                     };
                     setAllComments([commentAdd, ...allComments]);
                     setNewComment(newComment);
@@ -69,7 +69,7 @@ const OnePost = () => {
         axios.delete(`http://localhost:3500/api/comments/${id}`, {
             headers: { connectedToken: localStorage.getItem("connectedToken") },
         }).then(() => {
-        setAllComments(allComments.filter((comment) => {return comment.id != id}))
+            setAllComments(allComments.filter((comment) => { return comment.id != id }))
         });
     };
 
@@ -94,7 +94,7 @@ const OnePost = () => {
                 }}
 
             />
-           <div className="postFoot1">
+            <div className="postFoot1">
                 <div className="addComs">
                     <textarea placeholder="Ajoutez un commentaire" value={newComment} onChange={(e) => setNewComment(e.target.value)} />
                     <button onClick={addComment}>Publier</button>
@@ -105,8 +105,8 @@ const OnePost = () => {
                             <div className="commentaire" key={index}>
                                 <label className="commentaireLabel"> Par : <span className="authComment">{comment.username}</span></label>
                                 <div> {comment.comment}  </div>
-                               
-                            {(appContext.authState.username == comment.username || appContext.authState.isadmin == true) && (    <button className="divBtn" onClick={() => {
+
+                                {(appContext.authState.username == comment.username || appContext.authState.isadmin == true) && (<button className="divBtn" onClick={() => {
                                     deleteComment(comment.id)
                                 }}> <i className="fas fa-trash"></i> </button>)}
                             </div>

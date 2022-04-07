@@ -8,12 +8,12 @@ const Home = () => {
         <div>
         <Content {...heroThree} />
         <div className="modifProfil">
-        <div>
+        <div className="titre">
                 <label htmlFor=''>Changer l'image de profil</label><br/>
                  <input type="file"/>
         </div>
 
-         <div>
+         <div className="titre">
                  <label htmlFor=''>Modifier le mot de passe</label><br/>
                  <input type="text" placeholder='ancien mot de passe'/><br/>
                  <input type="text" placeholder='nouveau mot de passe'/>
