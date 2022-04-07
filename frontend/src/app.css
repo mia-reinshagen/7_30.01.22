@@ -44,13 +44,14 @@ body {
     position: relative;
     width: 40%;
     left: 50%;
-    top: -100px;
+    top: -250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: pink;
     padding: 6px;
+    border-radius: 7px;
   }
   
   .listeCommentaires {
