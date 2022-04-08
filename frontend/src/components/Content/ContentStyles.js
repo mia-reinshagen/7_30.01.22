@@ -79,6 +79,17 @@ export const Img = styled(motion.img)`
     z-index: 1;
 `;
 
+export const ImgPrtofilWrapper = styled(motion.div)`
+    display: flex;
+    justify-content: 'flex-end';
+    width:70%;
+    height: 350px;
+    justify-content: center;
+    border-radius:50px;
+    overflow:hidden;
+    position: relative;
+`;
+
 export const Heading = styled(motion.h2)`
     margin-bottom: 24px;
     font-size: 2rem;
