@@ -35,7 +35,6 @@ export const FormColumn = styled.div`
 		max-width: 100% !important;
 		flex-basis: 100%;
 	}
-
 	img {
 		@media screen and (max-width: 768px) {
 			display: none;
@@ -77,7 +76,6 @@ export const FormInputRow = styled.div`
 	flex-direction: column;
 	align-items: stretch;
 	margin-bottom: 1.4rem;
-
 	> p {
 		font-size: 0.8rem;
 		margin-top: 0.5rem;
@@ -142,7 +140,6 @@ export const FormButton = styled.button`
 	cursor: pointer;
 	position: relative;
 	overflow: hidden;
-
 	&:hover {
 		color: white;
 		transition: background-color 0.4s ease-in;

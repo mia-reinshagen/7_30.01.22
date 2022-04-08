@@ -148,3 +148,27 @@ body {
     height: 100%;
     object-fit: contain;
   }
+
+  @media screen and (max-width: 768px){
+    .noLike {
+      color: black;
+      position: absolute;
+      top: 440px;
+      left: 70%;
+      z-index: 0;
+    }
+    
+    .like {
+      color: rgb(10, 247, 69);
+      position: absolute;
+      top: 440px;
+      left: 70%;
+      z-index: 0;
+    }
+
+    .postcontainer{
+      margin-bottom: 100px;
+      
+    }
+}
+

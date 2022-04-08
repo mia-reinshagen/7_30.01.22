@@ -15,13 +15,14 @@ const OnePost = () => {
     const [newComment, setNewComment] = useState("");
     console.log(appContext);
     const history = useHistory();
-
+   
+  useEffect(() => {
+        if(!appContext.authState.isconnected){
+            history.push("/")
+        }
+    }, [])
 
     useEffect(() => {
-        console.log(appContext.authState)
-        if (!appContext.authState.isconnected) {
-            history.push("/signin")
-        } else {
             axios.get(`http://localhost:3500/api/post/${id}`, {
                 headers: { connectedToken: localStorage.getItem("connectedToken") }
             })
@@ -35,9 +36,9 @@ const OnePost = () => {
                 .then(response => {
                     setAllComments(response.data)
                 });
-        }
 
     }, [id])
+
 
     const addComment = () => {
         axios.post("http://localhost:3500/api/comments", {
@@ -56,7 +57,7 @@ const OnePost = () => {
                     const commentAdd = {
                         comment: response.data.comment,
                         username: response.data.username,
-                        id: response.data.id
+                        id:response.data.id
                     };
                     setAllComments([commentAdd, ...allComments]);
                     setNewComment(newComment);
@@ -69,7 +70,8 @@ const OnePost = () => {
         axios.delete(`http://localhost:3500/api/comments/${id}`, {
             headers: { connectedToken: localStorage.getItem("connectedToken") },
         }).then(() => {
-            setAllComments(allComments.filter((comment) => { return comment.id != id }))
+           
+           setAllComments(allComments.filter((comment) => {return comment.id != id}))
         });
     };
 
@@ -105,8 +107,8 @@ const OnePost = () => {
                             <div className="commentaire" key={index}>
                                 <label className="commentaireLabel"> Par : <span className="authComment">{comment.username}</span></label>
                                 <div> {comment.comment}  </div>
-
-                                {(appContext.authState.username == comment.username || appContext.authState.isadmin == true) && (<button className="divBtn" onClick={() => {
+                               
+                            {(appContext.authState.username == comment.username || appContext.authState.isadmin == true) && (    <button className="divBtn" onClick={() => {
                                     deleteComment(comment.id)
                                 }}> <i className="fas fa-trash"></i> </button>)}
                             </div>

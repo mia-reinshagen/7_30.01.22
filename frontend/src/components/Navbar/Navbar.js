@@ -1,3 +1,4 @@
+
 import React, { useState,useContext } from 'react';
 import { FaRProject, FaTimes } from 'react-icons/fa';
 import { CgMenuRight } from 'react-icons/cg';
@@ -23,7 +24,8 @@ const initAppState = {
                   userid: 0,
                   isconnected: false,
                   isadmin:false,
-                  imgprofil: ""
+                  imgprofil: "",
+				  created: null
                 },
     postsState:{
               postId: null,
@@ -38,7 +40,7 @@ const initAppState = {
   
 const Navbar = () => {
 	const {appContext,setAppContext} = useContext(GlobalContext);
-	console.log(appContext)
+	
 	const [show, setShow] = useState(false);
 
 	let history = useHistory();
@@ -77,7 +79,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<IconContext.Provider value={{ color: '#fff' }}>
+		<IconContext.Provider value={{ color: '#000' }}>
 			<Nav>
 				<NavbarContainer>
 					<NavLogo to="/">
@@ -94,12 +96,12 @@ const Navbar = () => {
 								<>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/signin","signin")}>
-											Sign In
+											Connexion
 										</NavLinks>
 									</NavItem>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/signup","signup")}>
-											Sign Up
+											Inscription
 										</NavLinks>
 									</NavItem>
 								</>
@@ -108,22 +110,23 @@ const Navbar = () => {
 								<>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/","home")}>
-											Home
+											Acceuil
 										</NavLinks>
 									</NavItem>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/profil","profil")}>
-											Profil
+											<div className="imgProfil"><img  src={`http://localhost:3500/images/uploads/${appContext.authState.imgprofil}`} alt="image de profil" /></div>
+											<span>{appContext.authState.username}</span> 
 										</NavLinks>
 									</NavItem>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/createpost","createpost")}>
-											Create Post
+											Crée Post
 										</NavLinks>
 									</NavItem>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/logout","logout")}>
-											Logout
+											Deconnexion
 										</NavLinks>
 									</NavItem>
 								</>

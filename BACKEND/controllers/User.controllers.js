@@ -123,18 +123,23 @@ exports.deleteUser = (req, res, next) => {
 // Modifier le Mot de passe 
 exports.editPassword = async (req, res, next) => {
     const id = req.params.id;
+    console.log(req.body)
+    console.log(id)
     const { oldPassword, newPassword } = req.body;
+       if (!password_regex.test(newPassword)) {
+            return res.json({ error: "Le mot de passe doit avoir au moins 6 caractères, 1 lettre majuscule et 1 lettre minuscule, un chiffre et un caractère spécial" })
+        }
     const user = await Users.findOne({ where: { id: id } });
 
     bcrypt.compare(oldPassword, user.password).then(async (match) => {
-        if (!match) res.json({ error: "Mauvais mot de passe" });
+        if (!match) return res.json({ error: "Mauvais mot de passe" });
 
         bcrypt.hash(newPassword, 10).then((hash) => {
             Users.update(
                 { password: hash },
                 { where: { id: id } }
             );
-            res.json("Mot de passe modifié");
+            return res.json("Mot de passe modifié");
         });
     });
 };
@@ -145,12 +150,15 @@ exports.editPicture = async (req, res, next) => {
     const id = req.params.id;
     const user = await Users.findOne({ where: { id: id } });
     user.update({
-        type: req.file.mimetype,
-        name: req.file.originalname,
+         type: req.file.mimetype,
+         name: req.file.originalname,
+         filename: req.file.filename,
         data: fs.readFileSync("../backend/images/uploads/" + req.file.filename)
     })
         .then((image) => {
             fs.writeFileSync("../backend/images/tmp/" + image.name, image.data);
+
+
             return res.send(`La photo a été télechargé`);
         });
 };

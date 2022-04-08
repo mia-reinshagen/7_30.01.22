@@ -1,7 +1,6 @@
 const fs = require("fs");
 
 const db = require("../models");
-const { post } = require("../routes/posts.routes");
 const Posts = db.Posts;
 const Likes = db.Likes;
 

@@ -40,6 +40,8 @@ export const NavLogo = styled(Link)`
 export const NavIcon = styled.img`
 	margin-right: 1rem;
 	width: 12rem;
+
+	
 `;
 
 export const MobileIcon = styled.div`
@@ -54,6 +56,10 @@ export const MobileIcon = styled.div`
 		transform: translate(-100%, 60%);
 		font-size: 1.8rem;
 		cursor: pointer;
+	}
+	@media screen and (max-width: 768px)
+	{
+		color:pink;
 	}
 `;
 
@@ -76,12 +82,14 @@ export const NavMenu = styled.ul`
 		visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
 		transform: translateY(${({ show }) => (show ? '0' : '-10px')});
 		transition: opacity 0.5s ease;
-		background-color: #071c2f;
+		background-color: #fff;
 	}
 
 	> li:first-child {
 		margin-left: auto;
 	}
+
+	
 `;
 
 export const NavItem = styled.li`
@@ -135,3 +143,4 @@ export const NavBtnLink = styled(Link)`
 	border: none;
 	outline: none;
 `;
+

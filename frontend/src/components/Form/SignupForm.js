@@ -44,6 +44,7 @@ const SignupForm = () => {
       .then((response) => {
         setError('');
         setSuccess(response.data.message);
+        
        
       })
       .catch((err) => {

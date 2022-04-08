@@ -24,7 +24,8 @@ function App() {
                   userid: 0,
                   isconnected: false,
                   isadmin:false,
-                  imgprofil: ""
+                  imgprofil: "",
+                  created:null
                 },
     postsState:[]
   });
@@ -50,7 +51,8 @@ function App() {
             userid: response.data.id,
             isconnected: true,
             isadmin: response.data.isAdminAccount,
-            imgprofil: response.data.name
+            imgprofil: response.data.filename,
+            created: response.data.createdAt
             }
           });
         }
@@ -65,12 +67,17 @@ function App() {
       <Navbar/>
       <Switch>
        
-               <Route path="/" exact component={Home}/>
-         <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
-                <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
-                <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/>
+          <Route path="/" exact component={Home}/>
+               
+                {/* <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/> */}
+                <Route path="/profil" exact={true} component={Profil}/>
                 <Route path="/createpost" exact={true} component={()=> {return appContext.authState.isconnected ? <PostCreate/> : < Redirect to="/" />}}/>
+                {/* <Route path="/post/:id" exact={true} component={()=> {return appContext.authState.isconnected ? <OnePost/> : < Redirect to="/" />}}/> */}
                 <Route path="/post/:id" exact component={OnePost} />
+                <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
+                <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
+
+
       </Switch>
       <Footer />
       
