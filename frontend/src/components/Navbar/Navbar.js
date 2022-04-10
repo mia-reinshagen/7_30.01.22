@@ -115,7 +115,8 @@ const Navbar = () => {
 									</NavItem>
 									<NavItem>
 										<NavLinks onClick={() => closeMobileMenu("/profil","profil")}>
-											<div className="imgProfil"><img  src={`http://localhost:3500/images/uploads/${appContext.authState.imgprofil}`} alt="image de profil" /></div>
+										<div className="imgProfil">
+											<img src={`http://localhost:3500/images/uploads/${appContext.authState.imgprofil ? appContext.authState.imgprofil : "avatar.png"}`} alt="image de profile" /></div>
 											<span>{appContext.authState.username}</span> 
 										</NavLinks>
 									</NavItem>

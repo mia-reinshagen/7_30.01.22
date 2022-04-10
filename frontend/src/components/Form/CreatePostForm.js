@@ -87,9 +87,10 @@ const CreatePostForm = () => {
           };
 
 		  setAppContext({...appContext,postsState:{...appContext.postsState, NewPost}})
-          history.push("/");
-          }).catch((err) => {
-		 setError(err.response.data.message)
+      window.location.pathname="/";
+    }).catch((err) => {
+      console.log(err)
+      setError(err)
       });
       
   };
@@ -100,7 +101,7 @@ const CreatePostForm = () => {
   };
 
   return (
-    <FormSection>
+    <FormSection className="Form">
       <Container>
         <FormRow>
           <FormColumn small>

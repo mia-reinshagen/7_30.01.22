@@ -81,6 +81,8 @@ exports.login = async (req, res, next) => {
                         id: user.id,
                         username: user.username,
                         isAdmin: user.isAdminAccount,
+                        filename: user.filename,
+                        createdAt: user.createdAt,
                         token: jwt.sign(
                             {
                                 id: user.id,

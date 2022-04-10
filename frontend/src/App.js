@@ -14,6 +14,7 @@ import Footer from './components/Footer/Footer';
 import PostCreate from './pages/PostCreate.pages';
 import OnePost from './pages/Post.pages';
 import './app.css';
+import NotFound from './pages/NotFound.pages';
 
 
 function App() {
@@ -68,15 +69,17 @@ function App() {
       <Switch>
        
           <Route path="/" exact component={Home}/>
-               
+                <Route path="/signup" exact component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
+                <Route path="/signin" component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
+                {/* <Route path="/signin" exact={true} component={SignIn}/> */}
                 {/* <Route path="/profil" exact={true} component={()=> {return appContext.authState.isconnected ? <Profil/> : < Redirect to="/" />}}/> */}
                 <Route path="/profil" exact={true} component={Profil}/>
                 <Route path="/createpost" exact={true} component={()=> {return appContext.authState.isconnected ? <PostCreate/> : < Redirect to="/" />}}/>
                 {/* <Route path="/post/:id" exact={true} component={()=> {return appContext.authState.isconnected ? <OnePost/> : < Redirect to="/" />}}/> */}
                 <Route path="/post/:id" exact component={OnePost} />
-                <Route path="/signup" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignUp/> : < Redirect to="/" />}}/>
-                <Route path="/signin" exact={true} component={()=> {return !appContext.authState.isconnected ? <SignIn/> : < Redirect to="/" />}}/>
 
+                 <Route path="*" component={()=> {return localStorage.getItem("connectedToken") ? <NotFound/> : < Redirect to="/signin" />}}/>
+                {/* <Route path="*" exact component={SignIn}/> */}
 
       </Switch>
       <Footer />

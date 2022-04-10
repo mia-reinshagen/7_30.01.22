@@ -47,6 +47,8 @@ const SigninForm = () => {
 				userid: response.data.id,
 				isconnected: true,
 				isadmin: response.data.isAdmin,
+				imgprofil: response.data.filename,
+				created: response.data.createdAt
 				}});
 
 				setError('');

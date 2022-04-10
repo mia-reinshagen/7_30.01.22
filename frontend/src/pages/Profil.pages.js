@@ -151,7 +151,7 @@ const Profil = () => {
 
 
         return (
-                <div>
+                <div className='ContentProfil'>
                         <ContentProfil onModifProfil={showModal} {...{
 
                                 reverse: true,
@@ -166,7 +166,7 @@ const Profil = () => {
 
                                 linkTo: '/download',
                                 imgStart: 'start',
-                                img: `http://localhost:3500/images/uploads/${authState.imgprofil}`,
+                                img: `http://localhost:3500/images/uploads/${authState.imgprofil ? authState.imgprofil : "avatar.png"}`,
                                 start: 'true',
                         }} />
 
